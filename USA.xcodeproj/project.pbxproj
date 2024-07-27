@@ -8,17 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		3031E6E52C546B3D0029BB16 /* USAApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E6E42C546B3D0029BB16 /* USAApp.swift */; };
-		3031E6E72C546B3D0029BB16 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E6E62C546B3D0029BB16 /* ContentView.swift */; };
+		3031E6E72C546B3D0029BB16 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E6E62C546B3D0029BB16 /* HomeView.swift */; };
 		3031E6E92C546B3E0029BB16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3031E6E82C546B3E0029BB16 /* Assets.xcassets */; };
 		3031E6EC2C546B3E0029BB16 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3031E6EB2C546B3E0029BB16 /* Preview Assets.xcassets */; };
+		3031E6F32C547E720029BB16 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E6F22C547E720029BB16 /* Model.swift */; };
+		3031E6F72C547FCA0029BB16 /* TripsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E6F62C547FCA0029BB16 /* TripsView.swift */; };
+		3031E6FB2C5480CC0029BB16 /* TripEntryModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E6FA2C5480CC0029BB16 /* TripEntryModalView.swift */; };
+		3031E6FD2C5486680029BB16 /* TripsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E6FC2C5486680029BB16 /* TripsCardView.swift */; };
+		3031E7022C54A10C0029BB16 /* TripPersistenceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E7012C54A10C0029BB16 /* TripPersistenceHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3031E6E12C546B3D0029BB16 /* USA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = USA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3031E6E42C546B3D0029BB16 /* USAApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USAApp.swift; sourceTree = "<group>"; };
-		3031E6E62C546B3D0029BB16 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3031E6E62C546B3D0029BB16 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		3031E6E82C546B3E0029BB16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3031E6EB2C546B3E0029BB16 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		3031E6F22C547E720029BB16 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		3031E6F62C547FCA0029BB16 /* TripsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsView.swift; sourceTree = "<group>"; };
+		3031E6FA2C5480CC0029BB16 /* TripEntryModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripEntryModalView.swift; sourceTree = "<group>"; };
+		3031E6FC2C5486680029BB16 /* TripsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsCardView.swift; sourceTree = "<group>"; };
+		3031E7012C54A10C0029BB16 /* TripPersistenceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripPersistenceHelper.swift; sourceTree = "<group>"; };
+		3031E7032C54A25F0029BB16 /* USA.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = USA.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,10 +62,16 @@
 		3031E6E32C546B3D0029BB16 /* USA */ = {
 			isa = PBXGroup;
 			children = (
+				3031E7032C54A25F0029BB16 /* USA.entitlements */,
+				3031E6F22C547E720029BB16 /* Model.swift */,
 				3031E6E42C546B3D0029BB16 /* USAApp.swift */,
-				3031E6E62C546B3D0029BB16 /* ContentView.swift */,
+				3031E6E62C546B3D0029BB16 /* HomeView.swift */,
 				3031E6E82C546B3E0029BB16 /* Assets.xcassets */,
 				3031E6EA2C546B3E0029BB16 /* Preview Content */,
+				3031E6F62C547FCA0029BB16 /* TripsView.swift */,
+				3031E7012C54A10C0029BB16 /* TripPersistenceHelper.swift */,
+				3031E6FA2C5480CC0029BB16 /* TripEntryModalView.swift */,
+				3031E6FC2C5486680029BB16 /* TripsCardView.swift */,
 			);
 			path = USA;
 			sourceTree = "<group>";
@@ -83,6 +100,8 @@
 			dependencies = (
 			);
 			name = USA;
+			packageProductDependencies = (
+			);
 			productName = USA;
 			productReference = 3031E6E12C546B3D0029BB16 /* USA.app */;
 			productType = "com.apple.product-type.application";
@@ -111,6 +130,8 @@
 				Base,
 			);
 			mainGroup = 3031E6D82C546B3D0029BB16;
+			packageReferences = (
+			);
 			productRefGroup = 3031E6E22C546B3D0029BB16 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -137,8 +158,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3031E6E72C546B3D0029BB16 /* ContentView.swift in Sources */,
+				3031E6F32C547E720029BB16 /* Model.swift in Sources */,
+				3031E6E72C546B3D0029BB16 /* HomeView.swift in Sources */,
 				3031E6E52C546B3D0029BB16 /* USAApp.swift in Sources */,
+				3031E6FB2C5480CC0029BB16 /* TripEntryModalView.swift in Sources */,
+				3031E6F72C547FCA0029BB16 /* TripsView.swift in Sources */,
+				3031E7022C54A10C0029BB16 /* TripPersistenceHelper.swift in Sources */,
+				3031E6FD2C5486680029BB16 /* TripsCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +295,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = USA/USA.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"USA/Preview Content\"";
@@ -298,6 +325,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = USA/USA.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"USA/Preview Content\"";
