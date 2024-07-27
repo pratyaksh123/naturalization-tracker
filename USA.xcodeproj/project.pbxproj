@@ -16,6 +16,7 @@
 		3031E6FB2C5480CC0029BB16 /* TripEntryModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E6FA2C5480CC0029BB16 /* TripEntryModalView.swift */; };
 		3031E6FD2C5486680029BB16 /* TripsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E6FC2C5486680029BB16 /* TripsCardView.swift */; };
 		3031E7022C54A10C0029BB16 /* TripPersistenceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E7012C54A10C0029BB16 /* TripPersistenceHelper.swift */; };
+		3031E7092C555E0C0029BB16 /* TripsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E7082C555E0C0029BB16 /* TripsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		3031E6FC2C5486680029BB16 /* TripsCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsCardView.swift; sourceTree = "<group>"; };
 		3031E7012C54A10C0029BB16 /* TripPersistenceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripPersistenceHelper.swift; sourceTree = "<group>"; };
 		3031E7032C54A25F0029BB16 /* USA.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = USA.entitlements; sourceTree = "<group>"; };
+		3031E7082C555E0C0029BB16 /* TripsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				3031E6E82C546B3E0029BB16 /* Assets.xcassets */,
 				3031E6EA2C546B3E0029BB16 /* Preview Content */,
 				3031E6F62C547FCA0029BB16 /* TripsView.swift */,
+				3031E7082C555E0C0029BB16 /* TripsViewModel.swift */,
 				3031E7012C54A10C0029BB16 /* TripPersistenceHelper.swift */,
 				3031E6FA2C5480CC0029BB16 /* TripEntryModalView.swift */,
 				3031E6FC2C5486680029BB16 /* TripsCardView.swift */,
@@ -159,6 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3031E6F32C547E720029BB16 /* Model.swift in Sources */,
+				3031E7092C555E0C0029BB16 /* TripsViewModel.swift in Sources */,
 				3031E6E72C546B3D0029BB16 /* HomeView.swift in Sources */,
 				3031E6E52C546B3D0029BB16 /* USAApp.swift in Sources */,
 				3031E6FB2C5480CC0029BB16 /* TripEntryModalView.swift in Sources */,

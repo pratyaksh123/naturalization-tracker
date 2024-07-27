@@ -19,8 +19,4 @@ struct Trip: Identifiable, Codable, Equatable {
         let components = calendar.dateComponents([.day], from: startDate, to: endDate)
         return components.day ?? 0
     }
-    
-    static func == (lhs: Trip, rhs: Trip) -> Bool {
-        return lhs.id == rhs.id
-    }
 }

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TripEntryModalView: View {
-    @Binding var trips: [Trip]
+    @State var viewModel: TripsViewModel // Use ObservedObject if ViewModel is passed from parent view
     @Binding var showModal: Bool
     @State private var title: String
     @State private var entryDate: Date
@@ -12,8 +12,8 @@ struct TripEntryModalView: View {
 
     let emojis = ["✈️", "🚗", "🚢", "🏖", "⛰", "🏠", "🎢"]
 
-    init(trips: Binding<[Trip]>, showModal: Binding<Bool>, tripToEdit: Trip? = nil) {
-        self._trips = trips
+    init(viewModel: TripsViewModel, showModal: Binding<Bool>, tripToEdit: Trip? = nil) {
+        self._viewModel = State(initialValue: viewModel)
         self._showModal = showModal
         if let trip = tripToEdit {
             self._title = State(initialValue: trip.title)
@@ -37,33 +37,27 @@ struct TripEntryModalView: View {
             VStack {
                 Form {
                     TextField("Title", text: $title)
-                        .padding(.bottom, 10)
-                        .padding(.top, 10)
-                    
                     DatePicker("Start Date", selection: $entryDate, displayedComponents: .date)
-                        .padding(.bottom, 10)
                     DatePicker("End Date", selection: $exitDate, displayedComponents: .date)
-                        .padding(.top, 10)
-                    
                     Picker("Choose Emoji", selection: $selectedEmoji) {
                         ForEach(emojis, id: \.self) { emoji in
                             Text(emoji).tag(emoji)
                         }
-                    }
-                    .pickerStyle(SegmentedPickerStyle())
-                    .padding(.top, 10)
-                    
+                    }.pickerStyle(SegmentedPickerStyle())
+
                     HStack {
                         Spacer()
                         Button(action: {
-                            if isEditing, let editingTrip = editingTrip {
-                                if let index = trips.firstIndex(where: { $0.id == editingTrip.id }) {
-                                    trips[index] = Trip(id: editingTrip.id, title: title, startDate: entryDate, endDate: exitDate, emoji: selectedEmoji)
-                                }
+                            if isEditing, let editingTrip = editingTrip, let index = viewModel.trips.firstIndex(where: { $0.id == editingTrip.id }) {
+                                // Update the trip directly in the array
+                                viewModel.trips[index] = Trip(id: editingTrip.id, title: title, startDate: entryDate, endDate: exitDate, emoji: selectedEmoji)
+                                viewModel.objectWillChange.send()
                             } else {
+                                // Add a new trip
                                 let newTrip = Trip(title: title, startDate: entryDate, endDate: exitDate, emoji: selectedEmoji)
-                                trips.append(newTrip)
+                                viewModel.trips.append(newTrip)
                             }
+                            viewModel.saveTrips() // Save the changes after updating
                             showModal = false
                         }) {
                             Text(isEditing ? "Save Trip" : "Add Trip")
@@ -75,21 +69,18 @@ struct TripEntryModalView: View {
                         }
                         Spacer()
                     }
-                    .padding()
                 }
-                .padding(.bottom, 20) // Add padding at the bottom to ensure everything is visible
             }
             .navigationTitle(isEditing ? "Edit Trip" : "Add Trip")
             .navigationBarItems(trailing: Button("Cancel") {
                 showModal = false
             })
         }
-        .presentationDetents([.fraction(0.75), .large]) // Adjusted fraction
     }
 }
 
 struct TripEntryModalView_Previews: PreviewProvider {
     static var previews: some View {
-        TripEntryModalView(trips: .constant([]), showModal: .constant(true))
+        TripEntryModalView(viewModel: TripsViewModel(), showModal: .constant(true))
     }
 }
