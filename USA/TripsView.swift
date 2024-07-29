@@ -2,7 +2,8 @@ import SwiftUI
 
 struct TripsView: View {
     @StateObject private var viewModel = TripsViewModel()
-
+    @State private var showSettings = false
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -63,6 +64,15 @@ struct TripsView: View {
                 }
             }
             .navigationTitle("Trips")
+            .navigationBarItems(trailing: Button(action: {
+                showSettings.toggle()
+            }, label: {
+                Image(systemName: "gear")
+            }))
+            .sheet(isPresented: $showSettings) {
+                SettingsView()
+                    .presentationDetents([.medium, .medium])
+            }
         }
     }
 }

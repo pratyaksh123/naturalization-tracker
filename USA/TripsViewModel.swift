@@ -14,6 +14,10 @@ class TripsViewModel: ObservableObject {
     @Published var tripToDelete: Trip?
     @Published var tripToEdit: Trip?
     
+    var totalTripDuration: Int {
+        trips.reduce(0) { $0 + $1.duration }
+    }
+    
     init() {
         self.loadTrips()
     }

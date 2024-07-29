@@ -4,6 +4,23 @@ class TripPersistence {
     static let shared = TripPersistence()
     private let store = NSUbiquitousKeyValueStore.default
     private let tripsKey = "tripsKey"
+    private let gcResidentKey = "gcResidentSinceKey" // New key for GC resident date
+    
+    // Save GC Resident Date
+    func saveGCResidentDate(_ date: Date) {
+        let timestamp = date.timeIntervalSince1970
+        store.set(timestamp, forKey: gcResidentKey)
+        store.synchronize() // Even though deprecated, ensuring immediate sync in this example
+    }
+    
+    // Load GC Resident Date
+    func loadGCResidentDate() -> Date? {
+        if let timestamp = store.double(forKey: gcResidentKey) as Double?, timestamp > 0 {
+            return Date(timeIntervalSince1970: timestamp)
+        } else {
+            return nil // No date saved
+        }
+    }
     
     // Save trips asynchronously with a completion handler
     func saveTrips(_ trips: [Trip], completion: @escaping (Bool) -> Void) {

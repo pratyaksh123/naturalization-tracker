@@ -9,18 +9,26 @@ struct TripCardView: View {
                 Text(trip.emoji)
                     .font(.largeTitle)
             }
+            
             VStack(alignment: .leading) {
-                Text(trip.title)
-                    .font(.title2)
-                    .padding(.bottom, 2)
+                if !trip.title.isEmpty {
+                    Text(trip.title)
+                        .font(.title2)
+                        .padding(.bottom, 2)
+                }
+                
                 Text("\(trip.startDate, formatter: dateFormatter)")
                     .font(.subheadline)
                     .padding(.bottom, 1)
+
                 Text("\(trip.endDate, formatter: dateFormatter)")
                     .font(.subheadline)
                     .padding(.bottom, 2)
             }
+            .padding(.leading, 10)
+            
             Spacer()
+            
             VStack {
                 Text("\(trip.duration)")
                     .font(.largeTitle)

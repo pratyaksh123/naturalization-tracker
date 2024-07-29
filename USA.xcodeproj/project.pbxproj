@@ -17,6 +17,12 @@
 		3031E6FD2C5486680029BB16 /* TripsCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E6FC2C5486680029BB16 /* TripsCardView.swift */; };
 		3031E7022C54A10C0029BB16 /* TripPersistenceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E7012C54A10C0029BB16 /* TripPersistenceHelper.swift */; };
 		3031E7092C555E0C0029BB16 /* TripsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E7082C555E0C0029BB16 /* TripsViewModel.swift */; };
+		3031E70B2C558E3D0029BB16 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E70A2C558E3C0029BB16 /* SettingsView.swift */; };
+		3031E7132C5607500029BB16 /* AWSCognitoAuthPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 3031E7122C5607500029BB16 /* AWSCognitoAuthPlugin */; };
+		3031E7152C5607500029BB16 /* Amplify in Frameworks */ = {isa = PBXBuildFile; productRef = 3031E7142C5607500029BB16 /* Amplify */; };
+		3031E7182C56089B0029BB16 /* Authenticator in Frameworks */ = {isa = PBXBuildFile; productRef = 3031E7172C56089B0029BB16 /* Authenticator */; };
+		C9CEAA1FBB88D4E70B5A55C5 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = BE25422D5218BFCBDB9132D5 /* awsconfiguration.json */; };
+		C9ECDA8651E4103A04728441 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 718DC35245E83F59F53272C4 /* amplifyconfiguration.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +38,10 @@
 		3031E7012C54A10C0029BB16 /* TripPersistenceHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripPersistenceHelper.swift; sourceTree = "<group>"; };
 		3031E7032C54A25F0029BB16 /* USA.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = USA.entitlements; sourceTree = "<group>"; };
 		3031E7082C555E0C0029BB16 /* TripsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsViewModel.swift; sourceTree = "<group>"; };
+		3031E70A2C558E3C0029BB16 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		3031E7192C5684540029BB16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		718DC35245E83F59F53272C4 /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
+		BE25422D5218BFCBDB9132D5 /* awsconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +49,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3031E7132C5607500029BB16 /* AWSCognitoAuthPlugin in Frameworks */,
+				3031E7152C5607500029BB16 /* Amplify in Frameworks */,
+				3031E7182C56089B0029BB16 /* Authenticator in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,6 +63,7 @@
 			children = (
 				3031E6E32C546B3D0029BB16 /* USA */,
 				3031E6E22C546B3D0029BB16 /* Products */,
+				A29354B7BB8B8D3F35CE35EA /* AmplifyConfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +78,7 @@
 		3031E6E32C546B3D0029BB16 /* USA */ = {
 			isa = PBXGroup;
 			children = (
+				3031E7192C5684540029BB16 /* Info.plist */,
 				3031E7032C54A25F0029BB16 /* USA.entitlements */,
 				3031E6F22C547E720029BB16 /* Model.swift */,
 				3031E6E42C546B3D0029BB16 /* USAApp.swift */,
@@ -71,6 +86,7 @@
 				3031E6E82C546B3E0029BB16 /* Assets.xcassets */,
 				3031E6EA2C546B3E0029BB16 /* Preview Content */,
 				3031E6F62C547FCA0029BB16 /* TripsView.swift */,
+				3031E70A2C558E3C0029BB16 /* SettingsView.swift */,
 				3031E7082C555E0C0029BB16 /* TripsViewModel.swift */,
 				3031E7012C54A10C0029BB16 /* TripPersistenceHelper.swift */,
 				3031E6FA2C5480CC0029BB16 /* TripEntryModalView.swift */,
@@ -85,6 +101,15 @@
 				3031E6EB2C546B3E0029BB16 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		A29354B7BB8B8D3F35CE35EA /* AmplifyConfig */ = {
+			isa = PBXGroup;
+			children = (
+				BE25422D5218BFCBDB9132D5 /* awsconfiguration.json */,
+				718DC35245E83F59F53272C4 /* amplifyconfiguration.json */,
+			);
+			name = AmplifyConfig;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -104,6 +129,9 @@
 			);
 			name = USA;
 			packageProductDependencies = (
+				3031E7122C5607500029BB16 /* AWSCognitoAuthPlugin */,
+				3031E7142C5607500029BB16 /* Amplify */,
+				3031E7172C56089B0029BB16 /* Authenticator */,
 			);
 			productName = USA;
 			productReference = 3031E6E12C546B3D0029BB16 /* USA.app */;
@@ -134,6 +162,8 @@
 			);
 			mainGroup = 3031E6D82C546B3D0029BB16;
 			packageReferences = (
+				3031E7112C5607500029BB16 /* XCRemoteSwiftPackageReference "amplify-swift" */,
+				3031E7162C56089B0029BB16 /* XCRemoteSwiftPackageReference "amplify-ui-swift-authenticator" */,
 			);
 			productRefGroup = 3031E6E22C546B3D0029BB16 /* Products */;
 			projectDirPath = "";
@@ -151,6 +181,8 @@
 			files = (
 				3031E6EC2C546B3E0029BB16 /* Preview Assets.xcassets in Resources */,
 				3031E6E92C546B3E0029BB16 /* Assets.xcassets in Resources */,
+				C9CEAA1FBB88D4E70B5A55C5 /* awsconfiguration.json in Resources */,
+				C9ECDA8651E4103A04728441 /* amplifyconfiguration.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,6 +196,7 @@
 				3031E6F32C547E720029BB16 /* Model.swift in Sources */,
 				3031E7092C555E0C0029BB16 /* TripsViewModel.swift in Sources */,
 				3031E6E72C546B3D0029BB16 /* HomeView.swift in Sources */,
+				3031E70B2C558E3D0029BB16 /* SettingsView.swift in Sources */,
 				3031E6E52C546B3D0029BB16 /* USAApp.swift in Sources */,
 				3031E6FB2C5480CC0029BB16 /* TripEntryModalView.swift in Sources */,
 				3031E6F72C547FCA0029BB16 /* TripsView.swift in Sources */,
@@ -306,6 +339,7 @@
 				DEVELOPMENT_TEAM = KCFD483S37;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = USA/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -336,6 +370,7 @@
 				DEVELOPMENT_TEAM = KCFD483S37;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = USA/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -376,6 +411,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3031E7112C5607500029BB16 /* XCRemoteSwiftPackageReference "amplify-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/aws-amplify/amplify-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.36.0;
+			};
+		};
+		3031E7162C56089B0029BB16 /* XCRemoteSwiftPackageReference "amplify-ui-swift-authenticator" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/aws-amplify/amplify-ui-swift-authenticator";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3031E7122C5607500029BB16 /* AWSCognitoAuthPlugin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3031E7112C5607500029BB16 /* XCRemoteSwiftPackageReference "amplify-swift" */;
+			productName = AWSCognitoAuthPlugin;
+		};
+		3031E7142C5607500029BB16 /* Amplify */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3031E7112C5607500029BB16 /* XCRemoteSwiftPackageReference "amplify-swift" */;
+			productName = Amplify;
+		};
+		3031E7172C56089B0029BB16 /* Authenticator */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3031E7162C56089B0029BB16 /* XCRemoteSwiftPackageReference "amplify-ui-swift-authenticator" */;
+			productName = Authenticator;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3031E6D92C546B3D0029BB16 /* Project object */;
 }

@@ -9,9 +9,9 @@ struct TripEntryModalView: View {
     @State private var selectedEmoji: String
     @State private var isEditing: Bool
     @State private var editingTrip: Trip?
-
+    
     let emojis = ["✈️", "🚗", "🚢", "🏖", "⛰", "🏠", "🎢"]
-
+    
     init(viewModel: TripsViewModel, showModal: Binding<Bool>, tripToEdit: Trip? = nil) {
         self._viewModel = State(initialValue: viewModel)
         self._showModal = showModal
@@ -31,20 +31,28 @@ struct TripEntryModalView: View {
             self._editingTrip = State(initialValue: nil)
         }
     }
-
+    
     var body: some View {
         NavigationView {
             VStack {
                 Form {
                     TextField("Title", text: $title)
+                        .padding(.vertical, 8) // Adds padding above and below the text field
+                    
                     DatePicker("Start Date", selection: $entryDate, displayedComponents: .date)
+                        .padding(.vertical, 8) // Adds padding above and below the date picker
+                    
                     DatePicker("End Date", selection: $exitDate, displayedComponents: .date)
+                        .padding(.vertical, 8) // Adds padding above and below the date picker
+                    
                     Picker("Choose Emoji", selection: $selectedEmoji) {
                         ForEach(emojis, id: \.self) { emoji in
                             Text(emoji).tag(emoji)
                         }
-                    }.pickerStyle(SegmentedPickerStyle())
-
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                    .padding(.vertical, 8) // Adds padding above and below the picker
+                    
                     HStack {
                         Spacer()
                         Button(action: {
@@ -57,7 +65,7 @@ struct TripEntryModalView: View {
                                 let newTrip = Trip(title: title, startDate: entryDate, endDate: exitDate, emoji: selectedEmoji)
                                 viewModel.trips.append(newTrip)
                             }
-                            viewModel.saveTrips() // Save the changes after updating
+                            viewModel.saveTrips()
                             showModal = false
                         }) {
                             Text(isEditing ? "Save Trip" : "Add Trip")
@@ -69,6 +77,7 @@ struct TripEntryModalView: View {
                         }
                         Spacer()
                     }
+                    .padding(.vertical, 8)
                 }
             }
             .navigationTitle(isEditing ? "Edit Trip" : "Add Trip")
