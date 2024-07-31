@@ -43,7 +43,7 @@ struct TripsView: View {
                 }
                 .listStyle(PlainListStyle())
                 .padding(.top, -8)
-
+                
                 Button(action: {
                     viewModel.tripToEdit = nil
                     viewModel.showModal.toggle()

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		300648F12C59C7FB00C4AABA /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 300648F02C59C7FB00C4AABA /* FirebaseMessaging */; };
+		300648F32C59D81C00C4AABA /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 300648F22C59D81C00C4AABA /* FirebaseFirestoreSwift */; };
+		300648F52C59DA2A00C4AABA /* UserAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300648F42C59DA2A00C4AABA /* UserAuth.swift */; };
 		3031E6E52C546B3D0029BB16 /* USAApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E6E42C546B3D0029BB16 /* USAApp.swift */; };
 		3031E6E72C546B3D0029BB16 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E6E62C546B3D0029BB16 /* HomeView.swift */; };
 		3031E6E92C546B3E0029BB16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3031E6E82C546B3E0029BB16 /* Assets.xcassets */; };
@@ -18,14 +21,19 @@
 		3031E7022C54A10C0029BB16 /* TripPersistenceHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E7012C54A10C0029BB16 /* TripPersistenceHelper.swift */; };
 		3031E7092C555E0C0029BB16 /* TripsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E7082C555E0C0029BB16 /* TripsViewModel.swift */; };
 		3031E70B2C558E3D0029BB16 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E70A2C558E3C0029BB16 /* SettingsView.swift */; };
-		3031E7132C5607500029BB16 /* AWSCognitoAuthPlugin in Frameworks */ = {isa = PBXBuildFile; productRef = 3031E7122C5607500029BB16 /* AWSCognitoAuthPlugin */; };
-		3031E7152C5607500029BB16 /* Amplify in Frameworks */ = {isa = PBXBuildFile; productRef = 3031E7142C5607500029BB16 /* Amplify */; };
-		3031E7182C56089B0029BB16 /* Authenticator in Frameworks */ = {isa = PBXBuildFile; productRef = 3031E7172C56089B0029BB16 /* Authenticator */; };
-		C9CEAA1FBB88D4E70B5A55C5 /* awsconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = BE25422D5218BFCBDB9132D5 /* awsconfiguration.json */; };
-		C9ECDA8651E4103A04728441 /* amplifyconfiguration.json in Resources */ = {isa = PBXBuildFile; fileRef = 718DC35245E83F59F53272C4 /* amplifyconfiguration.json */; };
+		3031E71C2C57382B0029BB16 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 3031E71B2C57382B0029BB16 /* FirebaseAnalytics */; };
+		3031E71E2C57382B0029BB16 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 3031E71D2C57382B0029BB16 /* FirebaseAuth */; };
+		3031E7202C5738B30029BB16 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3031E71F2C5738B30029BB16 /* GoogleService-Info.plist */; };
+		3031E7232C5739A80029BB16 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 3031E7222C5739A80029BB16 /* GoogleSignIn */; };
+		3031E7252C5739A80029BB16 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3031E7242C5739A80029BB16 /* GoogleSignInSwift */; };
+		3031E7272C573B610029BB16 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E7262C573B600029BB16 /* Authentication.swift */; };
+		3031E7292C573B720029BB16 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E7282C573B720029BB16 /* Login.swift */; };
+		3031E72B2C573B970029BB16 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E72A2C573B970029BB16 /* Home.swift */; };
+		3031E72D2C573CB70029BB16 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E72C2C573CB70029BB16 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		300648F42C59DA2A00C4AABA /* UserAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuth.swift; sourceTree = "<group>"; };
 		3031E6E12C546B3D0029BB16 /* USA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = USA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3031E6E42C546B3D0029BB16 /* USAApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USAApp.swift; sourceTree = "<group>"; };
 		3031E6E62C546B3D0029BB16 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -40,8 +48,11 @@
 		3031E7082C555E0C0029BB16 /* TripsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TripsViewModel.swift; sourceTree = "<group>"; };
 		3031E70A2C558E3C0029BB16 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		3031E7192C5684540029BB16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		718DC35245E83F59F53272C4 /* amplifyconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = amplifyconfiguration.json; sourceTree = "<group>"; };
-		BE25422D5218BFCBDB9132D5 /* awsconfiguration.json */ = {isa = PBXFileReference; explicitFileType = text.json; path = awsconfiguration.json; sourceTree = "<group>"; };
+		3031E71F2C5738B30029BB16 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3031E7262C573B600029BB16 /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
+		3031E7282C573B720029BB16 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		3031E72A2C573B970029BB16 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		3031E72C2C573CB70029BB16 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,9 +60,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3031E7132C5607500029BB16 /* AWSCognitoAuthPlugin in Frameworks */,
-				3031E7152C5607500029BB16 /* Amplify in Frameworks */,
-				3031E7182C56089B0029BB16 /* Authenticator in Frameworks */,
+				3031E71C2C57382B0029BB16 /* FirebaseAnalytics in Frameworks */,
+				3031E71E2C57382B0029BB16 /* FirebaseAuth in Frameworks */,
+				300648F12C59C7FB00C4AABA /* FirebaseMessaging in Frameworks */,
+				3031E7232C5739A80029BB16 /* GoogleSignIn in Frameworks */,
+				3031E7252C5739A80029BB16 /* GoogleSignInSwift in Frameworks */,
+				300648F32C59D81C00C4AABA /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,9 +75,9 @@
 		3031E6D82C546B3D0029BB16 = {
 			isa = PBXGroup;
 			children = (
+				3031E71F2C5738B30029BB16 /* GoogleService-Info.plist */,
 				3031E6E32C546B3D0029BB16 /* USA */,
 				3031E6E22C546B3D0029BB16 /* Products */,
-				A29354B7BB8B8D3F35CE35EA /* AmplifyConfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -78,10 +92,13 @@
 		3031E6E32C546B3D0029BB16 /* USA */ = {
 			isa = PBXGroup;
 			children = (
+				3031E7282C573B720029BB16 /* Login.swift */,
+				3031E7262C573B600029BB16 /* Authentication.swift */,
 				3031E7192C5684540029BB16 /* Info.plist */,
 				3031E7032C54A25F0029BB16 /* USA.entitlements */,
 				3031E6F22C547E720029BB16 /* Model.swift */,
 				3031E6E42C546B3D0029BB16 /* USAApp.swift */,
+				300648F42C59DA2A00C4AABA /* UserAuth.swift */,
 				3031E6E62C546B3D0029BB16 /* HomeView.swift */,
 				3031E6E82C546B3E0029BB16 /* Assets.xcassets */,
 				3031E6EA2C546B3E0029BB16 /* Preview Content */,
@@ -91,6 +108,8 @@
 				3031E7012C54A10C0029BB16 /* TripPersistenceHelper.swift */,
 				3031E6FA2C5480CC0029BB16 /* TripEntryModalView.swift */,
 				3031E6FC2C5486680029BB16 /* TripsCardView.swift */,
+				3031E72A2C573B970029BB16 /* Home.swift */,
+				3031E72C2C573CB70029BB16 /* ContentView.swift */,
 			);
 			path = USA;
 			sourceTree = "<group>";
@@ -101,15 +120,6 @@
 				3031E6EB2C546B3E0029BB16 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		A29354B7BB8B8D3F35CE35EA /* AmplifyConfig */ = {
-			isa = PBXGroup;
-			children = (
-				BE25422D5218BFCBDB9132D5 /* awsconfiguration.json */,
-				718DC35245E83F59F53272C4 /* amplifyconfiguration.json */,
-			);
-			name = AmplifyConfig;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -129,9 +139,12 @@
 			);
 			name = USA;
 			packageProductDependencies = (
-				3031E7122C5607500029BB16 /* AWSCognitoAuthPlugin */,
-				3031E7142C5607500029BB16 /* Amplify */,
-				3031E7172C56089B0029BB16 /* Authenticator */,
+				3031E71B2C57382B0029BB16 /* FirebaseAnalytics */,
+				3031E71D2C57382B0029BB16 /* FirebaseAuth */,
+				3031E7222C5739A80029BB16 /* GoogleSignIn */,
+				3031E7242C5739A80029BB16 /* GoogleSignInSwift */,
+				300648F02C59C7FB00C4AABA /* FirebaseMessaging */,
+				300648F22C59D81C00C4AABA /* FirebaseFirestoreSwift */,
 			);
 			productName = USA;
 			productReference = 3031E6E12C546B3D0029BB16 /* USA.app */;
@@ -162,8 +175,8 @@
 			);
 			mainGroup = 3031E6D82C546B3D0029BB16;
 			packageReferences = (
-				3031E7112C5607500029BB16 /* XCRemoteSwiftPackageReference "amplify-swift" */,
-				3031E7162C56089B0029BB16 /* XCRemoteSwiftPackageReference "amplify-ui-swift-authenticator" */,
+				3031E71A2C57382B0029BB16 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				3031E7212C5739A80029BB16 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			productRefGroup = 3031E6E22C546B3D0029BB16 /* Products */;
 			projectDirPath = "";
@@ -181,8 +194,7 @@
 			files = (
 				3031E6EC2C546B3E0029BB16 /* Preview Assets.xcassets in Resources */,
 				3031E6E92C546B3E0029BB16 /* Assets.xcassets in Resources */,
-				C9CEAA1FBB88D4E70B5A55C5 /* awsconfiguration.json in Resources */,
-				C9ECDA8651E4103A04728441 /* amplifyconfiguration.json in Resources */,
+				3031E7202C5738B30029BB16 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,11 +208,16 @@
 				3031E6F32C547E720029BB16 /* Model.swift in Sources */,
 				3031E7092C555E0C0029BB16 /* TripsViewModel.swift in Sources */,
 				3031E6E72C546B3D0029BB16 /* HomeView.swift in Sources */,
+				3031E7272C573B610029BB16 /* Authentication.swift in Sources */,
 				3031E70B2C558E3D0029BB16 /* SettingsView.swift in Sources */,
 				3031E6E52C546B3D0029BB16 /* USAApp.swift in Sources */,
+				300648F52C59DA2A00C4AABA /* UserAuth.swift in Sources */,
 				3031E6FB2C5480CC0029BB16 /* TripEntryModalView.swift in Sources */,
 				3031E6F72C547FCA0029BB16 /* TripsView.swift in Sources */,
 				3031E7022C54A10C0029BB16 /* TripPersistenceHelper.swift in Sources */,
+				3031E7292C573B720029BB16 /* Login.swift in Sources */,
+				3031E72D2C573CB70029BB16 /* ContentView.swift in Sources */,
+				3031E72B2C573B970029BB16 /* Home.swift in Sources */,
 				3031E6FD2C5486680029BB16 /* TripsCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -413,39 +430,54 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		3031E7112C5607500029BB16 /* XCRemoteSwiftPackageReference "amplify-swift" */ = {
+		3031E71A2C57382B0029BB16 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/aws-amplify/amplify-swift";
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 2.36.0;
+				minimumVersion = 10.29.0;
 			};
 		};
-		3031E7162C56089B0029BB16 /* XCRemoteSwiftPackageReference "amplify-ui-swift-authenticator" */ = {
+		3031E7212C5739A80029BB16 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/aws-amplify/amplify-ui-swift-authenticator";
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.5;
+				minimumVersion = 7.1.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		3031E7122C5607500029BB16 /* AWSCognitoAuthPlugin */ = {
+		300648F02C59C7FB00C4AABA /* FirebaseMessaging */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3031E7112C5607500029BB16 /* XCRemoteSwiftPackageReference "amplify-swift" */;
-			productName = AWSCognitoAuthPlugin;
+			package = 3031E71A2C57382B0029BB16 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
 		};
-		3031E7142C5607500029BB16 /* Amplify */ = {
+		300648F22C59D81C00C4AABA /* FirebaseFirestoreSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3031E7112C5607500029BB16 /* XCRemoteSwiftPackageReference "amplify-swift" */;
-			productName = Amplify;
+			package = 3031E71A2C57382B0029BB16 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
 		};
-		3031E7172C56089B0029BB16 /* Authenticator */ = {
+		3031E71B2C57382B0029BB16 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3031E7162C56089B0029BB16 /* XCRemoteSwiftPackageReference "amplify-ui-swift-authenticator" */;
-			productName = Authenticator;
+			package = 3031E71A2C57382B0029BB16 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		3031E71D2C57382B0029BB16 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3031E71A2C57382B0029BB16 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		3031E7222C5739A80029BB16 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3031E7212C5739A80029BB16 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		3031E7242C5739A80029BB16 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3031E7212C5739A80029BB16 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

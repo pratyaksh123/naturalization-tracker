@@ -4,6 +4,7 @@ struct HomeView: View {
     @State private var timeLeft: String = "Calculating..."
     @State private var gcDate: Date?
     @ObservedObject private var viewModel = TripsViewModel()
+    @State private var showSettings = false
 
     private var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
@@ -19,12 +20,41 @@ struct HomeView: View {
     
     private func formatDuration(from startDate: Date, to endDate: Date) -> String {
         let components = Calendar.current.dateComponents([.year, .month, .day], from: startDate, to: endDate)
-        let years = components.year ?? 0
-        let months = components.month ?? 0
-        let days = components.day ?? 0
-        return "\(years) years, \(months) months, \(days) days"
+        var parts: [String] = []
+        if let years = components.year, years > 0 {
+            parts.append("\(years) years")
+        }
+        if let months = components.month, months > 0 {
+            parts.append("\(months) months")
+        }
+        if let days = components.day, days > 0 {
+            parts.append("\(days) days")
+        }
+        return parts.joined(separator: " ")
     }
 
+    private func formatDurationDays(days: Int) -> String {
+        let years = days / 365
+        let months = (days % 365) / 30
+        let remainingDays = days % 30
+
+        var parts: [String] = []
+        if years > 0 {
+            parts.append("\(years) year" + (years > 1 ? "s" : ""))
+        }
+        if months > 0 {
+            parts.append("\(months) month" + (months > 1 ? "s" : ""))
+        }
+        if remainingDays > 0 {
+            parts.append("\(remainingDays) day" + (remainingDays != 1 ? "s" : ""))
+        } else if parts.isEmpty {
+            // Ensure "0 days" is shown if there are no years or months
+            parts.append("0 days")
+        }
+        
+        return parts.joined(separator: ", ")
+    }
+    
     private func updateTimeLeft() {
         guard let gcDate = gcDate else {
             timeLeft = "N/A"
@@ -45,7 +75,9 @@ struct HomeView: View {
                 Image("statue_of_liberty")
                     .resizable()
                     .scaledToFit()
-                    .frame(height: 400)
+                    .frame(height: 350)
+                    .padding(.top, 10)
+                
                 
                 Text("Time Left for Citizenship:")
                     .font(.headline)
@@ -59,20 +91,27 @@ struct HomeView: View {
 
                 if let gcDate = gcDate {
                     let now = Date()
-                    let daysOutsideUS = viewModel.totalTripDuration
+                    let daysOutsideUS = formatDurationDays(days: viewModel.totalTripDuration)
                     let physicalPresence = formatDuration(from: gcDate, to: now)
-                    let continuousResidence = formatDuration(from: gcDate.addingTimeInterval(Double(daysOutsideUS) * 24 * 60 * 60), to: now)
 
-                    Text("Physical presence in USA since GC: \(physicalPresence)")
+                    Text("Physical presence:")
                         .font(.headline)
                         .padding(.vertical, 5)
                     
-                    Text("Continuous residence time: \(continuousResidence)")
-                        .font(.headline)
+                    Text(physicalPresence)
+                        .font(.title2)
+                        .bold()
+                        .foregroundColor(Color.accentColor)
                         .padding(.vertical, 5)
 
-                    Text("Time outside of US: \(daysOutsideUS) days")
+                    Text("Time outside:")
                         .font(.headline)
+                        .padding(.top, 5)
+
+                    Text(daysOutsideUS)
+                        .font(.title2)
+                        .bold()
+                        .foregroundColor(Color.accentColor)
                         .padding(.vertical, 5)
                 }
 
@@ -86,7 +125,16 @@ struct HomeView: View {
                         .foregroundColor(.white)
                         .cornerRadius(20)
                 }
-                .padding(.bottom, 50)
+                .padding(.bottom, 20)
+                .navigationBarItems(trailing: Button(action: {
+                    showSettings.toggle()
+                }, label: {
+                    Image(systemName: "gear")
+                }))
+                .sheet(isPresented: $showSettings) {
+                    SettingsView()
+                        .presentationDetents([.medium, .medium])
+                }
             }
             .onAppear(perform: fetchData)
         }

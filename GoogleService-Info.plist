@@ -2,29 +2,33 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>API_KEY</key>
-	<string>AIzaSyCJQ6jijdEzpaWh1bSYSQBHbvoyuz11WVA</string>
-	<key>GCM_SENDER_ID</key>
-	<string>386271468034</string>
-	<key>PLIST_VERSION</key>
-	<string>1</string>
-	<key>BUNDLE_ID</key>
-	<string>com.pratyaksh.USA</string>
-	<key>PROJECT_ID</key>
-	<string>usc-tracker</string>
-	<key>STORAGE_BUCKET</key>
-	<string>usc-tracker.appspot.com</string>
-	<key>IS_ADS_ENABLED</key>
-	<false></false>
-	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
-	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
-	<key>IS_GCM_ENABLED</key>
-	<true></true>
-	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
-	<key>GOOGLE_APP_ID</key>
-	<string>1:386271468034:ios:0070653f099371c48fa51b</string>
+    <key>CLIENT_ID</key>
+    <string>386271468034-59d4h41lv6t8sf5hkn6t8ark2624mhgl.apps.googleusercontent.com</string>
+    <key>REVERSED_CLIENT_ID</key>
+    <string>com.googleusercontent.apps.386271468034-59d4h41lv6t8sf5hkn6t8ark2624mhgl</string>
+    <key>API_KEY</key>
+    <string>AIzaSyCJQ6jijdEzpaWh1bSYSQBHbvoyuz11WVA</string>
+    <key>GCM_SENDER_ID</key>
+    <string>386271468034</string>
+    <key>PLIST_VERSION</key>
+    <string>1</string>
+    <key>BUNDLE_ID</key>
+    <string>com.pratyaksh.USA</string>
+    <key>PROJECT_ID</key>
+    <string>usc-tracker</string>
+    <key>STORAGE_BUCKET</key>
+    <string>usc-tracker.appspot.com</string>
+    <key>IS_ADS_ENABLED</key>
+    <false></false>
+    <key>IS_ANALYTICS_ENABLED</key>
+    <false></false>
+    <key>IS_APPINVITE_ENABLED</key>
+    <true></true>
+    <key>IS_GCM_ENABLED</key>
+    <true></true>
+    <key>IS_SIGNIN_ENABLED</key>
+    <true></true>
+    <key>GOOGLE_APP_ID</key>
+    <string>1:386271468034:ios:0070653f099371c48fa51b</string>
 </dict>
 </plist>
