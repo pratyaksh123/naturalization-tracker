@@ -3,6 +3,8 @@ import SwiftUI
 struct TripsView: View {
     @StateObject private var viewModel = TripsViewModel()
     @State private var showSettings = false
+    @State private var showOptionsModal = false
+    @EnvironmentObject var userAuth: UserAuth
     
     var body: some View {
         NavigationView {
@@ -43,28 +45,17 @@ struct TripsView: View {
                 }
                 .listStyle(PlainListStyle())
                 .padding(.top, -8)
-                
-                Button(action: {
-                    viewModel.tripToEdit = nil
-                    viewModel.showModal.toggle()
-                }) {
-                    HStack {
-                        Image(systemName: "plus")
-                        Text("Add Trip")
-                    }
-                    .font(.title2)
-                    .padding()
-                    .background(Color("primaryColor"))
-                    .foregroundColor(.white)
-                    .cornerRadius(10)
-                }
-                .padding()
                 .sheet(isPresented: $viewModel.showModal) {
                     TripEntryModalView(viewModel: viewModel, showModal: $viewModel.showModal, tripToEdit: viewModel.tripToEdit)
                 }
             }
             .navigationTitle("Trips")
-            .navigationBarItems(trailing: Button(action: {
+            .navigationBarItems(leading:  Button(action: {
+                showOptionsModal.toggle()
+            }) {
+                Image(systemName: "plus")
+            },
+                                trailing: Button(action: {
                 showSettings.toggle()
             }, label: {
                 Image(systemName: "gear")
@@ -73,9 +64,55 @@ struct TripsView: View {
                 SettingsView()
                     .presentationDetents([.medium, .medium])
             }
+            .sheet(isPresented: $showOptionsModal) {
+                OptionsModalView(showImportModal: $showOptionsModal, viewModel: viewModel)
+                    .environmentObject(userAuth)
+                    .presentationDetents([.medium, .medium])
+            }
         }
     }
 }
+
+
+struct OptionsModalView: View {
+    @Environment(\.presentationMode) var presentationMode
+    @Binding var showImportModal: Bool
+    @StateObject var viewModel: TripsViewModel
+    @EnvironmentObject var userAuth: UserAuth
+    
+    var body: some View {
+        NavigationView {
+            List {
+                Button("Add Trip Manually") {
+                    presentationMode.wrappedValue.dismiss()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        viewModel.showModal = true
+                    }
+                }
+                .padding(.vertical, 10)
+                Button("Auto-import Trip using Email") {
+                    if userAuth.isLoggedIn {
+                        print("User is signed in with ID: \(userAuth.user?.uid ?? "Unknown")")
+                        
+                    } else {
+                        // Redirect to login view or handle unauthenticated state
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                }
+                .padding(.vertical, 10)
+            }
+            .navigationTitle("Add Trip Options")
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Close") {
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 struct TripsView_Previews: PreviewProvider {
     static var previews: some View {
