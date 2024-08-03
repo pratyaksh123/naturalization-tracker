@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		300648F12C59C7FB00C4AABA /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 300648F02C59C7FB00C4AABA /* FirebaseMessaging */; };
 		300648F32C59D81C00C4AABA /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 300648F22C59D81C00C4AABA /* FirebaseFirestoreSwift */; };
-		300648F52C59DA2A00C4AABA /* UserAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300648F42C59DA2A00C4AABA /* UserAuth.swift */; };
 		300648F72C5B0EE600C4AABA /* ImportTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300648F62C5B0EE600C4AABA /* ImportTripView.swift */; };
 		300648F92C5C6CC000C4AABA /* NavigationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300648F82C5C6CC000C4AABA /* NavigationUtil.swift */; };
 		3031E6E52C546B3D0029BB16 /* USAApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E6E42C546B3D0029BB16 /* USAApp.swift */; };
@@ -29,13 +28,11 @@
 		3031E7232C5739A80029BB16 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 3031E7222C5739A80029BB16 /* GoogleSignIn */; };
 		3031E7252C5739A80029BB16 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3031E7242C5739A80029BB16 /* GoogleSignInSwift */; };
 		3031E7272C573B610029BB16 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E7262C573B600029BB16 /* Authentication.swift */; };
-		3031E7292C573B720029BB16 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E7282C573B720029BB16 /* Login.swift */; };
-		3031E72B2C573B970029BB16 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E72A2C573B970029BB16 /* Home.swift */; };
+		3031E7292C573B720029BB16 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E7282C573B720029BB16 /* LoginView.swift */; };
 		3031E72D2C573CB70029BB16 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E72C2C573CB70029BB16 /* ContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		300648F42C59DA2A00C4AABA /* UserAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuth.swift; sourceTree = "<group>"; };
 		300648F62C5B0EE600C4AABA /* ImportTripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTripView.swift; sourceTree = "<group>"; };
 		300648F82C5C6CC000C4AABA /* NavigationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationUtil.swift; sourceTree = "<group>"; };
 		3031E6E12C546B3D0029BB16 /* USA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = USA.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,8 +51,7 @@
 		3031E7192C5684540029BB16 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3031E71F2C5738B30029BB16 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3031E7262C573B600029BB16 /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
-		3031E7282C573B720029BB16 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
-		3031E72A2C573B970029BB16 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		3031E7282C573B720029BB16 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		3031E72C2C573CB70029BB16 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -76,6 +72,54 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		300648FA2C5DDE4B00C4AABA /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				3031E72C2C573CB70029BB16 /* ContentView.swift */,
+				3031E70A2C558E3C0029BB16 /* SettingsView.swift */,
+				3031E6E62C546B3D0029BB16 /* HomeView.swift */,
+				3031E6F62C547FCA0029BB16 /* TripsView.swift */,
+				3031E7282C573B720029BB16 /* LoginView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		300648FB2C5DDE7500C4AABA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3031E6F22C547E720029BB16 /* Model.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		300648FC2C5DDE7D00C4AABA /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				3031E7082C555E0C0029BB16 /* TripsViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		300648FE2C5DDEAA00C4AABA /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				3031E7262C573B600029BB16 /* Authentication.swift */,
+				3031E7012C54A10C0029BB16 /* TripPersistenceHelper.swift */,
+				300648F82C5C6CC000C4AABA /* NavigationUtil.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		300648FF2C5DDED900C4AABA /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				3031E6FA2C5480CC0029BB16 /* TripEntryModalView.swift */,
+				300648F62C5B0EE600C4AABA /* ImportTripView.swift */,
+				3031E6FC2C5486680029BB16 /* TripsCardView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
 		3031E6D82C546B3D0029BB16 = {
 			isa = PBXGroup;
 			children = (
@@ -96,26 +140,16 @@
 		3031E6E32C546B3D0029BB16 /* USA */ = {
 			isa = PBXGroup;
 			children = (
-				3031E7282C573B720029BB16 /* Login.swift */,
-				3031E7262C573B600029BB16 /* Authentication.swift */,
+				300648FF2C5DDED900C4AABA /* Components */,
+				300648FE2C5DDEAA00C4AABA /* Utils */,
+				300648FC2C5DDE7D00C4AABA /* ViewModels */,
+				300648FB2C5DDE7500C4AABA /* Models */,
+				300648FA2C5DDE4B00C4AABA /* Screens */,
 				3031E7192C5684540029BB16 /* Info.plist */,
 				3031E7032C54A25F0029BB16 /* USA.entitlements */,
-				3031E6F22C547E720029BB16 /* Model.swift */,
 				3031E6E42C546B3D0029BB16 /* USAApp.swift */,
-				300648F42C59DA2A00C4AABA /* UserAuth.swift */,
-				3031E6E62C546B3D0029BB16 /* HomeView.swift */,
 				3031E6E82C546B3E0029BB16 /* Assets.xcassets */,
 				3031E6EA2C546B3E0029BB16 /* Preview Content */,
-				3031E6F62C547FCA0029BB16 /* TripsView.swift */,
-				300648F62C5B0EE600C4AABA /* ImportTripView.swift */,
-				3031E70A2C558E3C0029BB16 /* SettingsView.swift */,
-				300648F82C5C6CC000C4AABA /* NavigationUtil.swift */,
-				3031E7082C555E0C0029BB16 /* TripsViewModel.swift */,
-				3031E7012C54A10C0029BB16 /* TripPersistenceHelper.swift */,
-				3031E6FA2C5480CC0029BB16 /* TripEntryModalView.swift */,
-				3031E6FC2C5486680029BB16 /* TripsCardView.swift */,
-				3031E72A2C573B970029BB16 /* Home.swift */,
-				3031E72C2C573CB70029BB16 /* ContentView.swift */,
 			);
 			path = USA;
 			sourceTree = "<group>";
@@ -218,14 +252,12 @@
 				3031E7272C573B610029BB16 /* Authentication.swift in Sources */,
 				3031E70B2C558E3D0029BB16 /* SettingsView.swift in Sources */,
 				3031E6E52C546B3D0029BB16 /* USAApp.swift in Sources */,
-				300648F52C59DA2A00C4AABA /* UserAuth.swift in Sources */,
 				3031E6FB2C5480CC0029BB16 /* TripEntryModalView.swift in Sources */,
 				3031E6F72C547FCA0029BB16 /* TripsView.swift in Sources */,
 				3031E7022C54A10C0029BB16 /* TripPersistenceHelper.swift in Sources */,
-				3031E7292C573B720029BB16 /* Login.swift in Sources */,
+				3031E7292C573B720029BB16 /* LoginView.swift in Sources */,
 				3031E72D2C573CB70029BB16 /* ContentView.swift in Sources */,
 				300648F92C5C6CC000C4AABA /* NavigationUtil.swift in Sources */,
-				3031E72B2C573B970029BB16 /* Home.swift in Sources */,
 				3031E6FD2C5486680029BB16 /* TripsCardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
