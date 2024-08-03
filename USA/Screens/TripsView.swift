@@ -65,49 +65,8 @@ struct TripsView: View {
                     .presentationDetents([.medium, .medium])
             }
             .sheet(isPresented: $showOptionsModal) {
-                OptionsModalView(showImportModal: $showOptionsModal, isActive: $isActive, viewModel: viewModel)
+                AddTripModalView(showImportModal: $showOptionsModal, isActive: $isActive, viewModel: viewModel)
                     .presentationDetents([.medium, .medium])
-            }
-        }
-    }
-}
-
-
-struct OptionsModalView: View {
-    @Environment(\.presentationMode) var presentationMode
-    @Binding var showImportModal: Bool
-    @Binding var isActive: Bool
-    @StateObject var viewModel: TripsViewModel
-    
-    var body: some View {
-        NavigationView {
-            List {
-                Button("Add Trip Manually") {
-                    presentationMode.wrappedValue.dismiss()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        viewModel.showModal = true
-                    }
-                }
-                .padding(.vertical, 10)
-                Button("Auto-import Trip using Email") {
-                    if viewModel.isLoggedIn() {
-                        print("User is signed in with ID: \(viewModel.getUser()?.uid ?? "Unknown")")
-                        // display info
-                    } else {
-                        // Redirect to login view or handle unauthenticated state
-                        presentationMode.wrappedValue.dismiss()
-                        isActive = true
-                    }
-                }
-                .padding(.vertical, 10)
-            }
-            .navigationTitle("Add Trip Options")
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Close") {
-                        presentationMode.wrappedValue.dismiss()
-                    }
-                }
             }
         }
     }
