@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TripEntryModalView: View {
-    @State var viewModel: TripsViewModel // Use ObservedObject if ViewModel is passed from parent view
+    @StateObject var viewModel: TripsViewModel // Use ObservedObject if ViewModel is passed from parent view
     @Binding var showModal: Bool
     @State private var title: String
     @State private var entryDate: Date
@@ -13,7 +13,7 @@ struct TripEntryModalView: View {
     let emojis = ["✈️", "🚗", "🚢", "🏖", "⛰", "🏠", "🎢"]
     
     init(viewModel: TripsViewModel, showModal: Binding<Bool>, tripToEdit: Trip? = nil) {
-        self._viewModel = State(initialValue: viewModel)
+        self._viewModel = StateObject(wrappedValue: viewModel)
         self._showModal = showModal
         if let trip = tripToEdit {
             self._title = State(initialValue: trip.title)

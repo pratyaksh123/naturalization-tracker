@@ -74,12 +74,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
 @main
 struct YourApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    @StateObject var userAuth = UserAuth()
+    @StateObject var viewModel = TripsViewModel()
     
     var body: some Scene {
         WindowGroup {
             HomeView()
-                .environmentObject(userAuth)
+                .environmentObject(viewModel)
         }
     }
 }

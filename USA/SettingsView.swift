@@ -10,7 +10,8 @@ import SwiftUI
 struct SettingsView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var greenCardBeginDate: Date = TripPersistence.shared.loadGCResidentDate() ?? Date()
-    @EnvironmentObject var userAuth: UserAuth
+    @Binding var isActive: Bool
+    @EnvironmentObject var viewModel: TripsViewModel
 
     var body: some View {
         NavigationView {
@@ -19,13 +20,27 @@ struct SettingsView: View {
                     .padding(.vertical, 10)
                 HStack{
                     Spacer()
-                    Button("Sign Out") {
-                        userAuth.signOut()
+                    if viewModel.isLoggedIn() {
+                        Button("Sign Out") {
+                            presentationMode.wrappedValue.dismiss()
+                            viewModel.signOut()
+                            NavigationUtil.popToRootView()
+                        }
+                        .padding()
+                        .background(Color.red)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                    } else {
+                        Button("Sign In") {
+                            isActive = true
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                        .padding()
+                        .background(Color.accentColor)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
                     }
-                    .padding()
-                    .background(Color.red)
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
+                    
                     Spacer()
                 }
                 
@@ -42,7 +57,8 @@ struct SettingsView: View {
 
 
 struct SettingsView_Previews: PreviewProvider {
+    @State static private var isActive: Bool = false
     static var previews: some View {
-        SettingsView()
+        SettingsView(isActive: $isActive).environmentObject((TripsViewModel()))
     }
 }

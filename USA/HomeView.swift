@@ -3,18 +3,19 @@ import SwiftUI
 struct HomeView: View {
     @State private var timeLeft: String = "Calculating..."
     @State private var gcDate: Date?
-    @ObservedObject private var viewModel = TripsViewModel()
+    @EnvironmentObject var viewModel: TripsViewModel
     @State private var showSettings = false
-
+    @State private var isActive: Bool = false
+    @State private var dataLoaded = false
+    
     private var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         return formatter
     }
-
-    private func fetchData() {
+    
+    private func setup() {
         gcDate = TripPersistence.shared.loadGCResidentDate()
-        viewModel.loadTrips()
         updateTimeLeft()
     }
     
@@ -32,12 +33,12 @@ struct HomeView: View {
         }
         return parts.joined(separator: " ")
     }
-
+    
     private func formatDurationDays(days: Int) -> String {
         let years = days / 365
         let months = (days % 365) / 30
         let remainingDays = days % 30
-
+        
         var parts: [String] = []
         if years > 0 {
             parts.append("\(years) year" + (years > 1 ? "s" : ""))
@@ -63,15 +64,18 @@ struct HomeView: View {
         let now = Date()
         let naturalizationEligibilityDate = Calendar.current.date(byAdding: .year, value: 5, to: gcDate)?
             .addingTimeInterval(-90*24*3600)
-
+        
         if let eligibilityDate = naturalizationEligibilityDate {
             timeLeft = formatDuration(from: now, to: eligibilityDate)
         }
     }
-
+    
     var body: some View {
         NavigationView {
             VStack {
+                NavigationLink(destination: ContentView(viewModel: viewModel), isActive: $isActive) {
+                    EmptyView()
+                }
                 Image("statue_of_liberty")
                     .resizable()
                     .scaledToFit()
@@ -88,12 +92,12 @@ struct HomeView: View {
                     .bold()
                     .foregroundColor(Color.accentColor)
                     .padding(.vertical, 5)
-
+                
                 if let gcDate = gcDate {
                     let now = Date()
                     let daysOutsideUS = formatDurationDays(days: viewModel.totalTripDuration)
                     let physicalPresence = formatDuration(from: gcDate, to: now)
-
+                    
                     Text("Physical presence:")
                         .font(.headline)
                         .padding(.vertical, 5)
@@ -103,21 +107,21 @@ struct HomeView: View {
                         .bold()
                         .foregroundColor(Color.accentColor)
                         .padding(.vertical, 5)
-
+                    
                     Text("Time outside:")
                         .font(.headline)
                         .padding(.top, 5)
-
+                    
                     Text(daysOutsideUS)
                         .font(.title2)
                         .bold()
                         .foregroundColor(Color.accentColor)
                         .padding(.vertical, 5)
                 }
-
+                
                 Spacer()
                 
-                NavigationLink(destination: TripsView()) {
+                NavigationLink(destination: TripsView(viewModel: viewModel, isActive: $isActive)) {
                     Text("Trips")
                         .font(.title2)
                         .padding()
@@ -132,11 +136,16 @@ struct HomeView: View {
                     Image(systemName: "gear")
                 }))
                 .sheet(isPresented: $showSettings) {
-                    SettingsView()
+                    SettingsView(isActive: $isActive)
                         .presentationDetents([.medium, .medium])
                 }
             }
-            .onAppear(perform: fetchData)
+            .onAppear {
+                if !dataLoaded {
+                    setup()
+                    dataLoaded = true  // Set the flag to prevent future invocations
+                }
+            }
         }
     }
 }

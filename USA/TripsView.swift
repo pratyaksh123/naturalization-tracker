@@ -1,10 +1,10 @@
 import SwiftUI
 
 struct TripsView: View {
-    @StateObject private var viewModel = TripsViewModel()
     @State private var showSettings = false
     @State private var showOptionsModal = false
-    @EnvironmentObject var userAuth: UserAuth
+    @StateObject var viewModel: TripsViewModel
+    @Binding var isActive: Bool
     
     var body: some View {
         NavigationView {
@@ -61,12 +61,11 @@ struct TripsView: View {
                 Image(systemName: "gear")
             }))
             .sheet(isPresented: $showSettings) {
-                SettingsView()
+                SettingsView(isActive: $isActive)
                     .presentationDetents([.medium, .medium])
             }
             .sheet(isPresented: $showOptionsModal) {
-                OptionsModalView(showImportModal: $showOptionsModal, viewModel: viewModel)
-                    .environmentObject(userAuth)
+                OptionsModalView(showImportModal: $showOptionsModal, isActive: $isActive, viewModel: viewModel)
                     .presentationDetents([.medium, .medium])
             }
         }
@@ -77,8 +76,8 @@ struct TripsView: View {
 struct OptionsModalView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var showImportModal: Bool
+    @Binding var isActive: Bool
     @StateObject var viewModel: TripsViewModel
-    @EnvironmentObject var userAuth: UserAuth
     
     var body: some View {
         NavigationView {
@@ -91,12 +90,13 @@ struct OptionsModalView: View {
                 }
                 .padding(.vertical, 10)
                 Button("Auto-import Trip using Email") {
-                    if userAuth.isLoggedIn {
-                        print("User is signed in with ID: \(userAuth.user?.uid ?? "Unknown")")
-                        
+                    if viewModel.isLoggedIn() {
+                        print("User is signed in with ID: \(viewModel.getUser()?.uid ?? "Unknown")")
+                        // display info
                     } else {
                         // Redirect to login view or handle unauthenticated state
                         presentationMode.wrappedValue.dismiss()
+                        isActive = true
                     }
                 }
                 .padding(.vertical, 10)
@@ -115,7 +115,8 @@ struct OptionsModalView: View {
 
 
 struct TripsView_Previews: PreviewProvider {
+    @State static var isActive = false
     static var previews: some View {
-        TripsView()
+        TripsView(viewModel: TripsViewModel(), isActive: $isActive)
     }
 }

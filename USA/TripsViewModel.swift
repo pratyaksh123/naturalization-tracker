@@ -1,11 +1,6 @@
-//
-//  TripViewModel.swift
-//  USA
-//
-//  Created by Pratyaksh Tyagi on 7/27/24.
-//
-
 import Foundation
+import Firebase
+import Combine
 
 class TripsViewModel: ObservableObject {
     @Published var trips: [Trip] = []
@@ -13,28 +8,131 @@ class TripsViewModel: ObservableObject {
     @Published var showAlert = false
     @Published var tripToDelete: Trip?
     @Published var tripToEdit: Trip?
+    private var cancellables = Set<AnyCancellable>()
+    private var authHandle: AuthStateDidChangeListenerHandle?
     
     var totalTripDuration: Int {
         trips.reduce(0) { $0 + $1.duration }
     }
     
     init() {
-        self.loadTrips()
+        print("Initializing ViewModel...")
+        subscribeToAuthChanges()
     }
     
-    func loadTrips() {
-        TripPersistence.shared.loadTrips { [weak self] trips in
-            self?.trips = trips
+    deinit {
+        if let authHandle = authHandle {
+            Auth.auth().removeStateDidChangeListener(authHandle)
+            print("Removing auth state change listener.")
+        }
+    }
+    
+    func isLoggedIn() -> Bool {
+        let loggedIn = Auth.auth().currentUser != nil
+        print("Checked logged in status: \(loggedIn)")
+        return loggedIn
+    }
+    
+    func getUser() -> User? {
+        let user = Auth.auth().currentUser
+        print("Current user: \(String(describing: user))")
+        return user
+    }
+    
+    func signOut() {
+        do {
+            try Auth.auth().signOut()
+            print("User successfully signed out.")
+        } catch let signOutError as NSError {
+            print("Error signing out: \(signOutError.localizedDescription)")
+        }
+    }
+    
+    private func subscribeToAuthChanges() {
+        print("Subscribing to auth changes.")
+        authHandle = Auth.auth().addStateDidChangeListener { [weak self] (_, user) in
+            print("Auth state changed: \(String(describing: user))")
+            self?.handleAuthenticationChange(user: user)
+        }
+    }
+    
+    private func handleAuthenticationChange(user: User?) {
+        print("Handling authentication change...")
+        if let userId = user?.uid {
+            print("User is logged in with ID: \(userId)")
+            checkAndSyncTrips(userId: userId)
+        } else {
+            print("User is logged out.")
+            loadTrips()
+        }
+    }
+    
+    private func checkAndSyncTrips(userId: String) {
+        print("Checking and syncing trips for user ID: \(userId)")
+        TripPersistence.shared.loadTripsFromFirestore(userId: userId) { [weak self] firestoreTrips in
+            guard let self = self else { return }
+            print("Loaded trips from Firestore: \(firestoreTrips.count) trips")
+            
+            // Load trips from iCloud before comparing
+            self.loadiCloudTrips { iCloudTrips in
+                if !firestoreTrips.isEmpty {
+                    if !self.areTripsEqual(localTrips: iCloudTrips, firestoreTrips: firestoreTrips) {
+                        print("Local iCloud trips and Firestore trips differ. Updating Firestore...")
+                        self.saveTripsToFirestore(userId: userId)
+                    } else {
+                        print("Trips are the same. Updating local trips from Firestore.")
+                        self.trips = firestoreTrips
+                    }
+                } else if !iCloudTrips.isEmpty {
+                    print("Firestore is empty, but local iCloud trips exist. Uploading to Firestore...")
+                    self.trips = iCloudTrips  // Sync local model to iCloud trips before uploading
+                    self.saveTripsToFirestore(userId: userId)
+                }
+            }
         }
     }
     
     
+    private func areTripsEqual(localTrips: [Trip], firestoreTrips: [Trip]) -> Bool {
+        let localTripIds = Set(localTrips.map { $0.id })
+        let firestoreTripIds = Set(firestoreTrips.map { $0.id })
+        let isEqual = localTripIds == firestoreTripIds
+        print("Comparing local trips with Firestore trips: \(isEqual)")
+        return isEqual
+    }
+    
+    func loadTrips() {
+        print("Loading trips...")
+        if let userId = Auth.auth().currentUser?.uid {
+            print("User is logged in. Loading trips from Firestore...")
+            TripPersistence.shared.loadTripsFromFirestore(userId: userId) { [weak self] trips in
+                print("Trips loaded from Firestore: \(trips.count)")
+                self?.trips = trips
+            }
+        } else {
+            print("No user logged in. Loading trips locally...")
+            TripPersistence.shared.loadTrips { [weak self] trips in
+                print("Trips loaded locally: \(trips.count)")
+                self?.trips = trips
+            }
+        }
+    }
+    
+    func loadiCloudTrips(completion: @escaping ([Trip]) -> Void) {
+        TripPersistence.shared.loadTrips { trips in
+            print("Trips loaded from iCloud: \(trips.count)")
+            completion(trips)
+        }
+    }
+    
     func addTrip(_ trip: Trip) {
+        print("Adding new trip: \(trip)")
         trips.append(trip)
         saveTrips()
     }
     
     func updateTrip(_ trip: Trip) {
+        print("Updating trip: \(trip)")
         if let index = trips.firstIndex(where: { $0.id == trip.id }) {
             trips[index] = trip
             saveTrips()
@@ -43,20 +141,44 @@ class TripsViewModel: ObservableObject {
     
     func deleteTrip() {
         if let trip = tripToDelete, let index = trips.firstIndex(of: trip) {
+            print("Deleting trip: \(trip)")
             trips.remove(at: index)
-            saveTrips()
             tripToDelete = nil
+            saveTrips()
         }
     }
     
     func saveTrips() {
+        print("Saving trips...")
+        if let userId = Auth.auth().currentUser?.uid {
+            print("User is logged in. Saving trips to Firestore and icloud...")
+            saveTripsToFirestore(userId: userId)
+            saveTripsLocally()
+        } else {
+            print("No user logged in. Saving trips locally...")
+            saveTripsLocally()
+        }
+    }
+    
+    private func saveTripsToFirestore(userId: String) {
+        print("Saving trips to Firestore for user ID: \(userId)")
+        TripPersistence.shared.saveTripsToFirestore(trips, userId: userId) { success in
+            if success {
+                print("Trips have been saved successfully to Firestore.")
+            } else {
+                print("Failed to save trips to Firestore.")
+            }
+        }
+    }
+    
+    private func saveTripsLocally() {
+        print("Saving trips locally...")
         TripPersistence.shared.saveTrips(trips) { success in
             if success {
-                print("Trips have been saved successfully.")
+                print("Trips have been saved successfully locally.")
             } else {
-                print("Failed to save trips.")
+                print("Failed to save trips locally.")
             }
-            self.loadTrips() // Optionally reload data
         }
     }
 }

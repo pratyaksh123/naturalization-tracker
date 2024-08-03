@@ -1,4 +1,5 @@
 import Foundation
+import FirebaseFirestore
 
 class TripPersistence {
     static let shared = TripPersistence()
@@ -19,6 +20,52 @@ class TripPersistence {
             return Date(timeIntervalSince1970: timestamp)
         } else {
             return nil // No date saved
+        }
+    }
+    
+    func saveTripsToFirestore(_ trips: [Trip], userId: String, completion: @escaping (Bool) -> Void) {
+        let db = Firestore.firestore()
+        let data: [String: Any] = ["trips": try! JSONEncoder().encode(trips).base64EncodedString()]
+        db.collection("users").document(userId).setData(data, merge: true) { error in
+            if let error = error {
+                print("Error saving trips to Firestore: \(error)")
+                completion(false)
+            } else {
+                print("Trips successfully saved to Firestore")
+                completion(true)
+            }
+        }
+    }
+    
+    func checkForTripsInFirestore(userId: String, completion: @escaping (Bool) -> Void) {
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(userId)
+        
+        userRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                if let data = document.data(), data.contains(where: { $0.key == "trips" }) {
+                    completion(true)  // Trips data exists in Firestore
+                } else {
+                    completion(false) // No trips data found
+                }
+            } else {
+                completion(false) // Document does not exist or error occurred
+            }
+        }
+    }
+    
+    func loadTripsFromFirestore(userId: String, completion: @escaping ([Trip]) -> Void) {
+        print("Trips loaded from firestore")
+        let db = Firestore.firestore()
+        db.collection("users").document(userId).getDocument { (document, error) in
+            guard let document = document, document.exists, let data = document.data(),
+                  let tripsDataString = data["trips"] as? String,
+                  let tripsData = Data(base64Encoded: tripsDataString),
+                  let trips = try? JSONDecoder().decode([Trip].self, from: tripsData) else {
+                completion([])
+                return
+            }
+            completion(trips)
         }
     }
     

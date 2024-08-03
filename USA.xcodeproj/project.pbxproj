@@ -11,6 +11,7 @@
 		300648F32C59D81C00C4AABA /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 300648F22C59D81C00C4AABA /* FirebaseFirestoreSwift */; };
 		300648F52C59DA2A00C4AABA /* UserAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300648F42C59DA2A00C4AABA /* UserAuth.swift */; };
 		300648F72C5B0EE600C4AABA /* ImportTripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300648F62C5B0EE600C4AABA /* ImportTripView.swift */; };
+		300648F92C5C6CC000C4AABA /* NavigationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300648F82C5C6CC000C4AABA /* NavigationUtil.swift */; };
 		3031E6E52C546B3D0029BB16 /* USAApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E6E42C546B3D0029BB16 /* USAApp.swift */; };
 		3031E6E72C546B3D0029BB16 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E6E62C546B3D0029BB16 /* HomeView.swift */; };
 		3031E6E92C546B3E0029BB16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3031E6E82C546B3E0029BB16 /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 /* Begin PBXFileReference section */
 		300648F42C59DA2A00C4AABA /* UserAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAuth.swift; sourceTree = "<group>"; };
 		300648F62C5B0EE600C4AABA /* ImportTripView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportTripView.swift; sourceTree = "<group>"; };
+		300648F82C5C6CC000C4AABA /* NavigationUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationUtil.swift; sourceTree = "<group>"; };
 		3031E6E12C546B3D0029BB16 /* USA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = USA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3031E6E42C546B3D0029BB16 /* USAApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USAApp.swift; sourceTree = "<group>"; };
 		3031E6E62C546B3D0029BB16 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				3031E6F62C547FCA0029BB16 /* TripsView.swift */,
 				300648F62C5B0EE600C4AABA /* ImportTripView.swift */,
 				3031E70A2C558E3C0029BB16 /* SettingsView.swift */,
+				300648F82C5C6CC000C4AABA /* NavigationUtil.swift */,
 				3031E7082C555E0C0029BB16 /* TripsViewModel.swift */,
 				3031E7012C54A10C0029BB16 /* TripPersistenceHelper.swift */,
 				3031E6FA2C5480CC0029BB16 /* TripEntryModalView.swift */,
@@ -221,6 +224,7 @@
 				3031E7022C54A10C0029BB16 /* TripPersistenceHelper.swift in Sources */,
 				3031E7292C573B720029BB16 /* Login.swift in Sources */,
 				3031E72D2C573CB70029BB16 /* ContentView.swift in Sources */,
+				300648F92C5C6CC000C4AABA /* NavigationUtil.swift in Sources */,
 				3031E72B2C573B970029BB16 /* Home.swift in Sources */,
 				3031E6FD2C5486680029BB16 /* TripsCardView.swift in Sources */,
 			);
