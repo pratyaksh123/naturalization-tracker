@@ -2,7 +2,7 @@ import SwiftUI
 
 struct TripCardView: View {
     var trip: Trip
-
+    
     var body: some View {
         HStack {
             VStack {
@@ -41,9 +41,9 @@ struct TripCardView: View {
         }
         .padding()
         .frame(maxWidth: .infinity) // Fill horizontal space
-        .background(Color.white)
+        .background(Color(UIColor.systemBackground))
         .cornerRadius(10)
-        .shadow(color: Color.gray.opacity(0.4), radius: 5, x: 0, y: 2)
+        .shadow(color: Color.primary.opacity(0.2), radius: 5, x: 0, y: 2)
         .padding(.horizontal)
         .padding(.vertical, 5)
     }

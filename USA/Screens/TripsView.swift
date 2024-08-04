@@ -68,6 +68,9 @@ struct TripsView: View {
                 AddTripModalView(showImportModal: $showOptionsModal, isActive: $isActive, viewModel: viewModel)
                     .presentationDetents([.medium, .medium])
             }
+            .onAppear{
+                viewModel.loadTrips()
+            }
         }
     }
 }

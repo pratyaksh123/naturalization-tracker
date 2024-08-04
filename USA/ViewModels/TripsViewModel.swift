@@ -75,23 +75,32 @@ class TripsViewModel: ObservableObject {
             
             // Load trips from iCloud before comparing
             self.loadiCloudTrips { iCloudTrips in
-                if !firestoreTrips.isEmpty {
-                    if !self.areTripsEqual(localTrips: iCloudTrips, firestoreTrips: firestoreTrips) {
-                        print("Local iCloud trips and Firestore trips differ. Updating Firestore...")
-                        self.saveTripsToFirestore(userId: userId)
+                print("Loaded trips from iCloud: \(iCloudTrips.count) trips")
+                
+                if firestoreTrips.count != iCloudTrips.count {
+                    if firestoreTrips.count > iCloudTrips.count {
+                        print("Firestore has more trips. Updating local iCloud trips...")
+                        self.trips = firestoreTrips  // Sync local model to Firestore trips
+                        self.saveTripsLocally()  // Save the updated trips to iCloud
                     } else {
-                        print("Trips are the same. Updating local trips from Firestore.")
-                        self.trips = firestoreTrips
+                        print("iCloud has more trips. Updating Firestore...")
+                        self.trips = iCloudTrips  // Sync local model to iCloud trips
+                        self.saveTripsToFirestore(userId: userId)  // Save the updated trips to Firestore
                     }
-                } else if !iCloudTrips.isEmpty {
-                    print("Firestore is empty, but local iCloud trips exist. Uploading to Firestore...")
-                    self.trips = iCloudTrips  // Sync local model to iCloud trips before uploading
-                    self.saveTripsToFirestore(userId: userId)
+                } else {
+                    print("Trips count is the same. Checking for content equality...")
+                    if !self.areTripsEqual(localTrips: iCloudTrips, firestoreTrips: firestoreTrips) {
+                        print("Local iCloud trips and Firestore trips differ in content. Updating both to match.")
+                        self.trips = iCloudTrips  // Sync local model to iCloud trips
+                        self.saveTripsLocally()  // Update iCloud trips for consistency
+                        self.saveTripsToFirestore(userId: userId)  // Update Firestore trips for consistency
+                    } else {
+                        print("All trips are synchronized and equal.")
+                    }
                 }
             }
         }
     }
-    
     
     private func areTripsEqual(localTrips: [Trip], firestoreTrips: [Trip]) -> Bool {
         let localTripIds = Set(localTrips.map { $0.id })

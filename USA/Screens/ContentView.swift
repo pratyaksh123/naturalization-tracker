@@ -4,20 +4,14 @@ import Firebase
 struct ContentView: View {
     @StateObject var viewModel: TripsViewModel
     @Environment(\.presentationMode) var presentationMode
-    @State private var isLoading = true
+    @State private var isLoading = false
     
     var body: some View {
         VStack {
-            if viewModel.isLoggedIn() && isLoading {
+            if isLoading {
                 ProgressView()
-                    .onAppear{
-                        if viewModel.isLoggedIn(){
-                            isLoading = false
-                            NavigationUtil.popToRootView(animated: true)
-                        }
-                    }
             } else {
-                LoginView()
+                LoginView(isLoading: $isLoading, viewModel: viewModel)
             }
         }
     }

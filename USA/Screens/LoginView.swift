@@ -9,7 +9,9 @@ import SwiftUI
 
 struct LoginView: View {
     @State private var err: String = ""
-
+    @Binding var isLoading: Bool
+    @State var viewModel: TripsViewModel
+    
     var body: some View {
         VStack {
             Text("Sign in to auto-import itineraries!")
@@ -25,10 +27,15 @@ struct LoginView: View {
             Button {
                 Task {
                     do {
+                        isLoading = true
                         try await Authentication().googleOauth()
                     } catch let e {
                         print(e)
                         err = e.localizedDescription
+                    }
+                    isLoading = false
+                    if viewModel.isLoggedIn() {
+                        NavigationUtil.popToRootView(animated: true)
                     }
                 }
             } label: {
@@ -50,7 +57,8 @@ struct LoginView: View {
 }
 
 struct LoginView_Previews: PreviewProvider {
+    @State static var isLoading = true
     static var previews: some View {
-        LoginView()
+        LoginView(isLoading: $isLoading, viewModel: TripsViewModel())
     }
 }
