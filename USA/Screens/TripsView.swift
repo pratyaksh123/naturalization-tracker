@@ -61,12 +61,20 @@ struct TripsView: View {
                 Image(systemName: "gear")
             }))
             .sheet(isPresented: $showSettings) {
-                SettingsView(isActive: $isActive)
-                    .presentationDetents([.medium, .medium])
+                if #available(iOS 16.0, *) {
+                    SettingsView(isActive: $isActive)
+                        .presentationDetents([.medium, .medium])
+                } else {
+                    SettingsView(isActive: $isActive)
+                }
             }
             .sheet(isPresented: $showOptionsModal) {
-                AddTripModalView(showImportModal: $showOptionsModal, isActive: $isActive, viewModel: viewModel)
-                    .presentationDetents([.medium, .medium])
+                if #available(iOS 16.0, *) {
+                    AddTripModalView(showImportModal: $showOptionsModal, isActive: $isActive, viewModel: viewModel)
+                        .presentationDetents([.medium, .medium])
+                } else {
+                    AddTripModalView(showImportModal: $showOptionsModal, isActive: $isActive, viewModel: viewModel)
+                }
             }
             .onAppear{
                 viewModel.loadTrips()

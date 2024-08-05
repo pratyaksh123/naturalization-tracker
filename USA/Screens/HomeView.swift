@@ -35,45 +35,43 @@ struct HomeView: View {
                 Image("statue_of_liberty")
                     .resizable()
                     .scaledToFit()
-                    .frame(height: 350)
-                    .padding(.top, 10)
-                
+                    .frame(height: UIScreen.main.bounds.height / 2.5)
+                    .padding(.top, -10)
                 
                 Text("Time Left for Citizenship:")
                     .font(.headline)
-                    .padding(.vertical, 5)
+                    .padding(.top, 2)
                 
                 Text(viewModel.timeLeftForCitizenship)
                     .font(.title)
                     .bold()
                     .foregroundColor(Color.accentColor)
-                    .padding(.vertical, 5)
-                
+                    .padding(.top, 1)
+
                 let now = Date()
                 let daysOutsideUS = viewModel.formatDurationDays(days: viewModel.totalTripDuration)
                 let physicalPresence = viewModel.formatDuration(from: viewModel.greenCardStartDate, to: now)
                 
                 Text("Physical presence:")
                     .font(.headline)
-                    .padding(.vertical, 5)
+                    .padding(.top, 3)
                 
                 Text(physicalPresence)
                     .font(.title2)
                     .bold()
                     .foregroundColor(Color.accentColor)
-                    .padding(.vertical, 5)
+                    .padding(.top, 1)
                 
                 Text("Time outside:")
                     .font(.headline)
-                    .padding(.top, 5)
+                    .padding(.top, 3)
                 
                 Text(daysOutsideUS)
                     .font(.title2)
                     .bold()
                     .foregroundColor(Color.accentColor)
-                    .padding(.vertical, 5)
-                
-                Spacer()
+                    .padding(.top, 1)
+
                 
                 NavigationLink(destination: TripsView(viewModel: viewModel, isActive: $isActive)) {
                     Text("Trips")
@@ -101,8 +99,12 @@ struct HomeView: View {
                     )
                 }
                 .sheet(isPresented: $showSettings) {
-                    SettingsView(isActive: $isActive)
-                        .presentationDetents([.medium, .medium])
+                    if #available(iOS 16.0, *) {
+                        SettingsView(isActive: $isActive)
+                            .presentationDetents([.medium, .medium])
+                    } else {
+                        SettingsView(isActive: $isActive)
+                    }
                 }
             }
             .onAppear {

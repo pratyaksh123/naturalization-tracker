@@ -57,10 +57,15 @@ class TripsViewModel: ObservableObject {
     func updateTimeLeft() {
         let adjustmentYears = isMarriedToCitizen ? 3 : 5
         let eligibilityDate = Calendar.current.date(byAdding: .year, value: adjustmentYears, to: greenCardStartDate)?
-            .addingTimeInterval(-90*24*3600)  // 90 days before the anniversary
+            .addingTimeInterval(-90 * 24 * 3600)  // 90 days before the anniversary
         
         if let eligibilityDate = eligibilityDate {
-            timeLeftForCitizenship = formatDuration(from: Date(), to: eligibilityDate)
+            let now = Date()
+            if now >= eligibilityDate {
+                timeLeftForCitizenship = "Naturalization Time!"
+            } else {
+                timeLeftForCitizenship = formatDuration(from: now, to: eligibilityDate)
+            }
         } else {
             timeLeftForCitizenship = "N/A"
         }
