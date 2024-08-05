@@ -3,16 +3,37 @@ import Firebase
 import Combine
 
 class TripsViewModel: ObservableObject {
-    @Published var trips: [Trip] = []
+    @Published var trips: [Trip] = [] {
+        didSet {
+            updateTotalTripDuration()
+        }
+    }
     @Published var showModal = false
     @Published var showAlert = false
     @Published var tripToDelete: Trip?
     @Published var tripToEdit: Trip?
+    @Published var greenCardStartDate: Date = TripPersistence.shared.loadGCResidentDate() ?? Date() {
+        didSet {
+            updateTimeLeft()
+        }
+    }
+    @Published var timeLeftForCitizenship: String = "Calculating..."
+    @Published var totalTripDuration: Int = 0
+    @Published var isMarriedToCitizen: Bool = TripPersistence.shared.loadMarriageStatus() {
+        didSet {
+            TripPersistence.shared.saveMarriageStatus(isMarried: isMarriedToCitizen)
+            updateTimeLeft()  // Recalculate the time left whenever the marriage status changes
+        }
+    }
+    
     private var cancellables = Set<AnyCancellable>()
     private var authHandle: AuthStateDidChangeListenerHandle?
     
-    var totalTripDuration: Int {
-        trips.reduce(0) { $0 + $1.duration }
+    func updateTotalTripDuration() {
+        totalTripDuration = trips.reduce(0) { total, trip in
+            total + trip.duration
+        }
+        print("Updated total trip duration: \(totalTripDuration)")
     }
     
     init() {
@@ -25,6 +46,61 @@ class TripsViewModel: ObservableObject {
             Auth.auth().removeStateDidChangeListener(authHandle)
             print("Removing auth state change listener.")
         }
+    }
+    
+    func updateGreenCardStartDate(newDate: Date) {
+        greenCardStartDate = newDate
+        TripPersistence.shared.saveGCResidentDate(newDate)
+        updateTimeLeft()  // Assuming you have a method to update related calculations
+    }
+    
+    func updateTimeLeft() {
+        let adjustmentYears = isMarriedToCitizen ? 3 : 5
+        let eligibilityDate = Calendar.current.date(byAdding: .year, value: adjustmentYears, to: greenCardStartDate)?
+            .addingTimeInterval(-90*24*3600)  // 90 days before the anniversary
+        
+        if let eligibilityDate = eligibilityDate {
+            timeLeftForCitizenship = formatDuration(from: Date(), to: eligibilityDate)
+        } else {
+            timeLeftForCitizenship = "N/A"
+        }
+    }
+    
+    func formatDuration(from startDate: Date, to endDate: Date) -> String {
+        let components = Calendar.current.dateComponents([.year, .month, .day], from: startDate, to: endDate)
+        var parts: [String] = []
+        if let years = components.year, years > 0 {
+            parts.append("\(years) years")
+        }
+        if let months = components.month, months > 0 {
+            parts.append("\(months) months")
+        }
+        if let days = components.day, days > 0 {
+            parts.append("\(days) days")
+        }
+        return parts.joined(separator: " ")
+    }
+    
+    func formatDurationDays(days: Int) -> String {
+        let years = days / 365
+        let months = (days % 365) / 30
+        let remainingDays = days % 30
+        
+        var parts: [String] = []
+        if years > 0 {
+            parts.append("\(years) year" + (years > 1 ? "s" : ""))
+        }
+        if months > 0 {
+            parts.append("\(months) month" + (months > 1 ? "s" : ""))
+        }
+        if remainingDays > 0 {
+            parts.append("\(remainingDays) day" + (remainingDays != 1 ? "s" : ""))
+        } else if parts.isEmpty {
+            // Ensure "0 days" is shown if there are no years or months
+            parts.append("0 days")
+        }
+        
+        return parts.joined(separator: ", ")
     }
     
     func isLoggedIn() -> Bool {
@@ -95,6 +171,7 @@ class TripsViewModel: ObservableObject {
                         self.saveTripsLocally()  // Update iCloud trips for consistency
                         self.saveTripsToFirestore(userId: userId)  // Update Firestore trips for consistency
                     } else {
+                        self.loadTrips()
                         print("All trips are synchronized and equal.")
                     }
                 }

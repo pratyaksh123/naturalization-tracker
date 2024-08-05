@@ -14,6 +14,9 @@
 		300649012C5E909800C4AABA /* AddTripModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300649002C5E909800C4AABA /* AddTripModalView.swift */; };
 		300649032C5E924400C4AABA /* FirestoreUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300649022C5E924400C4AABA /* FirestoreUtil.swift */; };
 		300649072C5E956900C4AABA /* ShowAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300649062C5E956900C4AABA /* ShowAlert.swift */; };
+		300649092C6020A600C4AABA /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300649082C6020A600C4AABA /* StoreManager.swift */; };
+		3006490C2C602CC200C4AABA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3006490B2C602CC200C4AABA /* StoreKit.framework */; };
+		3006490E2C602E5700C4AABA /* Auto-Import.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 3006490D2C602E5700C4AABA /* Auto-Import.storekit */; };
 		3031E6E52C546B3D0029BB16 /* USAApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E6E42C546B3D0029BB16 /* USAApp.swift */; };
 		3031E6E72C546B3D0029BB16 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E6E62C546B3D0029BB16 /* HomeView.swift */; };
 		3031E6E92C546B3E0029BB16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3031E6E82C546B3E0029BB16 /* Assets.xcassets */; };
@@ -41,6 +44,9 @@
 		300649002C5E909800C4AABA /* AddTripModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTripModalView.swift; sourceTree = "<group>"; };
 		300649022C5E924400C4AABA /* FirestoreUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreUtil.swift; sourceTree = "<group>"; };
 		300649062C5E956900C4AABA /* ShowAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlert.swift; sourceTree = "<group>"; };
+		300649082C6020A600C4AABA /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
+		3006490B2C602CC200C4AABA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		3006490D2C602E5700C4AABA /* Auto-Import.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Auto-Import.storekit"; sourceTree = "<group>"; };
 		3031E6E12C546B3D0029BB16 /* USA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = USA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3031E6E42C546B3D0029BB16 /* USAApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USAApp.swift; sourceTree = "<group>"; };
 		3031E6E62C546B3D0029BB16 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -67,6 +73,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3031E71C2C57382B0029BB16 /* FirebaseAnalytics in Frameworks */,
+				3006490C2C602CC200C4AABA /* StoreKit.framework in Frameworks */,
 				3031E71E2C57382B0029BB16 /* FirebaseAuth in Frameworks */,
 				300648F12C59C7FB00C4AABA /* FirebaseMessaging in Frameworks */,
 				3031E7232C5739A80029BB16 /* GoogleSignIn in Frameworks */,
@@ -113,6 +120,7 @@
 				3031E7012C54A10C0029BB16 /* TripPersistenceHelper.swift */,
 				300648F82C5C6CC000C4AABA /* NavigationUtil.swift */,
 				300649022C5E924400C4AABA /* FirestoreUtil.swift */,
+				300649082C6020A600C4AABA /* StoreManager.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -129,12 +137,21 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		3006490A2C602CC200C4AABA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3006490B2C602CC200C4AABA /* StoreKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		3031E6D82C546B3D0029BB16 = {
 			isa = PBXGroup;
 			children = (
 				3031E71F2C5738B30029BB16 /* GoogleService-Info.plist */,
 				3031E6E32C546B3D0029BB16 /* USA */,
 				3031E6E22C546B3D0029BB16 /* Products */,
+				3006490A2C602CC200C4AABA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -159,6 +176,7 @@
 				3031E6E42C546B3D0029BB16 /* USAApp.swift */,
 				3031E6E82C546B3E0029BB16 /* Assets.xcassets */,
 				3031E6EA2C546B3E0029BB16 /* Preview Content */,
+				3006490D2C602E5700C4AABA /* Auto-Import.storekit */,
 			);
 			path = USA;
 			sourceTree = "<group>";
@@ -241,6 +259,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3006490E2C602E5700C4AABA /* Auto-Import.storekit in Resources */,
 				3031E6EC2C546B3E0029BB16 /* Preview Assets.xcassets in Resources */,
 				3031E6E92C546B3E0029BB16 /* Assets.xcassets in Resources */,
 				3031E7202C5738B30029BB16 /* GoogleService-Info.plist in Resources */,
@@ -254,6 +273,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				300649092C6020A600C4AABA /* StoreManager.swift in Sources */,
 				300649012C5E909800C4AABA /* AddTripModalView.swift in Sources */,
 				3031E6F32C547E720029BB16 /* Model.swift in Sources */,
 				300649072C5E956900C4AABA /* ShowAlert.swift in Sources */,
@@ -329,7 +349,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -386,7 +406,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;

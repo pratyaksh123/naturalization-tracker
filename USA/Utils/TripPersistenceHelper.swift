@@ -5,7 +5,8 @@ class TripPersistence {
     static let shared = TripPersistence()
     private let store = NSUbiquitousKeyValueStore.default
     private let tripsKey = "tripsKey"
-    private let gcResidentKey = "gcResidentSinceKey" // New key for GC resident date
+    private let gcResidentKey = "gcResidentSinceKey"
+    private let marriedToCitizenKey = "marriedToCitizenKey"
     
     // Save GC Resident Date
     func saveGCResidentDate(_ date: Date) {
@@ -35,6 +36,15 @@ class TripPersistence {
                 completion(true)
             }
         }
+    }
+    
+    func saveMarriageStatus(isMarried: Bool) {
+        store.set(isMarried, forKey: marriedToCitizenKey)
+    }
+    
+    
+    func loadMarriageStatus() -> Bool {
+        return store.bool(forKey: marriedToCitizenKey)
     }
     
     func checkForTripsInFirestore(userId: String, completion: @escaping (Bool) -> Void) {
