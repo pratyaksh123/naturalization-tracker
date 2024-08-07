@@ -32,11 +32,15 @@ struct HomeView: View {
                 NavigationLink(destination: ContentView(viewModel: viewModel), isActive: $isActive) {
                     EmptyView()
                 }
-                Image("statue_of_liberty")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: UIScreen.main.bounds.height / 2.5)
-                    .padding(.top, -10)
+                
+                GeometryReader { proxy in
+                    Image("statue_of_liberty")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: proxy.size.width, height: proxy.size.height * 1)
+                        .padding(.top, -10)
+                }
+                
                 
                 Text("Time Left for Citizenship:")
                     .font(.headline)

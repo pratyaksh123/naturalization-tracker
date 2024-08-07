@@ -51,6 +51,7 @@ struct TripsView: View {
             }
             .navigationTitle("Trips")
             .navigationBarItems(leading:  Button(action: {
+                viewModel.tripToEdit = nil
                 showOptionsModal.toggle()
             }) {
                 Image(systemName: "plus")
