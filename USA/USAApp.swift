@@ -1,4 +1,6 @@
 import SwiftUI
+import Sentry
+
 import UIKit
 import Firebase
 import FirebaseCore
@@ -9,6 +11,16 @@ import FirebaseFirestore
 class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUserNotificationCenterDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        SentrySDK.start { options in
+            options.dsn = "https://582c6a5129c8e2f0d3bcc8002a2ae6dc@o4507734083502080.ingest.us.sentry.io/4507734092152832"
+            options.debug = true // Enabled debug when first installing is always helpful
+            options.enableTracing = true 
+
+            // Uncomment the following lines to add more data to your events
+            // options.attachScreenshot = true // This adds a screenshot to the error events
+            // options.attachViewHierarchy = true // This adds the view hierarchy to the error events
+        }
+
         // Configure Firebase
         FirebaseApp.configure()
         

@@ -1,10 +1,3 @@
-//
-//  Login.swift
-//  USA
-//
-//  Created by Pratyaksh Tyagi on 7/28/24.
-//
-
 import SwiftUI
 
 struct LoginView: View {
@@ -18,39 +11,45 @@ struct LoginView: View {
                 .font(.headline)
                 .padding()
             
-            Image("statue_of_liberty")
-                .resizable()
-                .scaledToFit()
-                .frame(height: 600)
-                .padding(.top, 10)
-            
-            Button {
-                Task {
-                    do {
-                        isLoading = true
-                        try await Authentication().googleOauth()
-                    } catch let e {
-                        print(e)
-                        err = e.localizedDescription
-                    }
-                    isLoading = false
-                    if viewModel.isLoggedIn() {
-                        NavigationUtil.popToRootView(animated: true)
-                    }
+            GeometryReader { proxy in
+                VStack {
+                    Image("statue_of_liberty")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: proxy.size.width, height: proxy.size.height * 0.8)
+                    
+                    Spacer() // Dynamically assigns remaining space
+                    
+                    Button {
+                        Task {
+                            do {
+                                isLoading = true
+                                try await Authentication().googleOauth()
+                            } catch let e {
+                                print(e)
+                                err = e.localizedDescription
+                            }
+                            isLoading = false
+                            if viewModel.isLoggedIn() {
+                                NavigationUtil.popToRootView(animated: true)
+                            }
+                        }
+                    } label: {
+                        HStack {
+                            Image(systemName: "person.badge.key.fill")
+                            Text("Sign in with Google")
+                        }
+                        .frame(height: proxy.size.height * 0.07)                    }
+                    .buttonStyle(.borderedProminent)
+                    .padding(.bottom, proxy.size.height * 0.09) // Provide some padding from the bottom
                 }
-            } label: {
-                HStack {
-                    Image(systemName: "person.badge.key.fill")
-                    Text("Sign in with Google")
-                }
-                .padding(8)
             }
-            .buttonStyle(.borderedProminent)
             
             if !err.isEmpty {
                 Text(err)
                     .foregroundColor(.red)
                     .font(.caption)
+                    .padding()
             }
         }
     }

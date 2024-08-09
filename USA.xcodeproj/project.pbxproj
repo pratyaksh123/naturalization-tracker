@@ -17,6 +17,8 @@
 		300649092C6020A600C4AABA /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300649082C6020A600C4AABA /* StoreManager.swift */; };
 		3006490C2C602CC200C4AABA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3006490B2C602CC200C4AABA /* StoreKit.framework */; };
 		3006490E2C602E5700C4AABA /* Auto-Import.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 3006490D2C602E5700C4AABA /* Auto-Import.storekit */; };
+		300649112C6453BF00C4AABA /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = 300649102C6453BF00C4AABA /* RevenueCat */; };
+		300649132C6453BF00C4AABA /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = 300649122C6453BF00C4AABA /* RevenueCatUI */; };
 		3031E6E52C546B3D0029BB16 /* USAApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E6E42C546B3D0029BB16 /* USAApp.swift */; };
 		3031E6E72C546B3D0029BB16 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E6E62C546B3D0029BB16 /* HomeView.swift */; };
 		3031E6E92C546B3E0029BB16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3031E6E82C546B3E0029BB16 /* Assets.xcassets */; };
@@ -36,6 +38,7 @@
 		3031E7272C573B610029BB16 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E7262C573B600029BB16 /* Authentication.swift */; };
 		3031E7292C573B720029BB16 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E7282C573B720029BB16 /* LoginView.swift */; };
 		3031E72D2C573CB70029BB16 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E72C2C573CB70029BB16 /* ContentView.swift */; };
+		B102E783D6964549992C48C3 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 724F85364843472BAAEEDABA /* Sentry */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,8 +80,11 @@
 				3031E71E2C57382B0029BB16 /* FirebaseAuth in Frameworks */,
 				300648F12C59C7FB00C4AABA /* FirebaseMessaging in Frameworks */,
 				3031E7232C5739A80029BB16 /* GoogleSignIn in Frameworks */,
+				300649112C6453BF00C4AABA /* RevenueCat in Frameworks */,
 				3031E7252C5739A80029BB16 /* GoogleSignInSwift in Frameworks */,
 				300648F32C59D81C00C4AABA /* FirebaseFirestoreSwift in Frameworks */,
+				300649132C6453BF00C4AABA /* RevenueCatUI in Frameworks */,
+				B102E783D6964549992C48C3 /* Sentry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -199,6 +205,7 @@
 				3031E6DD2C546B3D0029BB16 /* Sources */,
 				3031E6DE2C546B3D0029BB16 /* Frameworks */,
 				3031E6DF2C546B3D0029BB16 /* Resources */,
+				34D36531785F4F049042F72E /* Upload Debug Symbols to Sentry */,
 			);
 			buildRules = (
 			);
@@ -212,6 +219,9 @@
 				3031E7242C5739A80029BB16 /* GoogleSignInSwift */,
 				300648F02C59C7FB00C4AABA /* FirebaseMessaging */,
 				300648F22C59D81C00C4AABA /* FirebaseFirestoreSwift */,
+				724F85364843472BAAEEDABA /* Sentry */,
+				300649102C6453BF00C4AABA /* RevenueCat */,
+				300649122C6453BF00C4AABA /* RevenueCatUI */,
 			);
 			productName = USA;
 			productReference = 3031E6E12C546B3D0029BB16 /* USA.app */;
@@ -244,6 +254,8 @@
 			packageReferences = (
 				3031E71A2C57382B0029BB16 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				3031E7212C5739A80029BB16 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				5CC33672ACC446C087466BFD /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+				3006490F2C6453BF00C4AABA /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
 			);
 			productRefGroup = 3031E6E22C546B3D0029BB16 /* Products */;
 			projectDirPath = "";
@@ -267,6 +279,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		34D36531785F4F049042F72E /* Upload Debug Symbols to Sentry */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+			);
+			name = "Upload Debug Symbols to Sentry";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script is responsable to upload debug symbols and source context for Sentry.\nif which sentry-cli >/dev/null; then\nexport SENTRY_ORG=usc-tracker\nexport SENTRY_PROJECT=apple-ios\nERROR=$(sentry-cli debug-files upload --include-sources \"$DWARF_DSYM_FOLDER_PATH\" 2>&1 >/dev/null)\nif [ ! $? -eq 0 ]; then\necho \"warning: sentry-cli - $ERROR\"\nfi\nelse\necho \"warning: sentry-cli not installed, download from https://github.com/getsentry/sentry-cli/releases\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3031E6DD2C546B3D0029BB16 /* Sources */ = {
@@ -421,13 +451,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = USA/USA.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 5;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"USA/Preview Content\"";
 				DEVELOPMENT_TEAM = KCFD483S37;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = USA/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "USC Tracker";
@@ -444,6 +476,10 @@
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pratyaksh.USA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -455,13 +491,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = USA/USA.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 5;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"USA/Preview Content\"";
 				DEVELOPMENT_TEAM = KCFD483S37;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = USA/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "USC Tracker";
@@ -478,6 +516,10 @@
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pratyaksh.USA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -508,6 +550,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3006490F2C6453BF00C4AABA /* XCRemoteSwiftPackageReference "purchases-ios-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.2.3;
+			};
+		};
 		3031E71A2C57382B0029BB16 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -524,6 +574,14 @@
 				minimumVersion = 7.1.0;
 			};
 		};
+		5CC33672ACC446C087466BFD /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/getsentry/sentry-cocoa/";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -536,6 +594,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3031E71A2C57382B0029BB16 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
+		};
+		300649102C6453BF00C4AABA /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3006490F2C6453BF00C4AABA /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCat;
+		};
+		300649122C6453BF00C4AABA /* RevenueCatUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3006490F2C6453BF00C4AABA /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCatUI;
 		};
 		3031E71B2C57382B0029BB16 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -556,6 +624,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3031E7212C5739A80029BB16 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
+		};
+		724F85364843472BAAEEDABA /* Sentry */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5CC33672ACC446C087466BFD /* XCRemoteSwiftPackageReference "sentry-cocoa" */;
+			productName = Sentry;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
