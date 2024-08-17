@@ -1,23 +1,43 @@
 import SwiftUI
 
-enum AlertContext {
+enum AlertContext: Identifiable {
     case freeTrialActive
     case purchasePrompt
     case alreadyPremium
+    case restored
     case error(String)
+    
+    var id: String {
+        switch self {
+        case .freeTrialActive: return "freeTrialActive"
+        case .purchasePrompt: return "purchasePrompt"
+        case .alreadyPremium: return "alreadyPremium"
+        case .restored: return "restored"
+        case .error(let message): return "error-\(message)"
+        }
+    }
 }
+
 
 struct AddTripModalView: View {
     @Environment(\.presentationMode) var presentationMode
     @Binding var showImportModal: Bool
     @Binding var isActive: Bool
     @StateObject var viewModel: TripsViewModel
-    @StateObject private var storeManager = StoreManager()
-    @State private var alertContext: AlertContext?
-    @State private var showingAlert = false
+    @State private var alertContext: AlertContext? = nil
     @State private var alertTitle = ""
     @State private var alertMessage = ""
-
+    @StateObject private var storeManager = StoreManager()
+    
+    private func setupCallbacks() {
+        storeManager.onRestoreCompleted = {
+            alertContext = .restored
+        }
+        storeManager.onError = { errorMessage in
+            alertContext = .error(errorMessage)
+        }
+    }
+    
     var body: some View {
         NavigationView {
             List {
@@ -28,14 +48,19 @@ struct AddTripModalView: View {
                     }
                 }
                 .padding(.vertical, 10)
+                
                 Button("Auto-import Trip using Email") {
                     if viewModel.isLoggedIn() {
                         handlePremiumCheck()
                     } else {
-                        // Redirect to login view or handle unauthenticated state
                         presentationMode.wrappedValue.dismiss()
                         isActive = true
                     }
+                }
+                .padding(.vertical, 10)
+                
+                Button("Restore Subscriptions") {
+                    storeManager.restorePurchases()
                 }
                 .padding(.vertical, 10)
             }
@@ -47,8 +72,8 @@ struct AddTripModalView: View {
                     }
                 }
             }
-            .alert(isPresented: $showingAlert) {
-                switch alertContext {
+            .alert(item: $alertContext) { context in
+                switch context {
                 case .freeTrialActive:
                     return Alert(
                         title: Text(alertTitle),
@@ -78,13 +103,21 @@ struct AddTripModalView: View {
                         message: Text(message),
                         dismissButton: .default(Text("OK"))
                     )
-                default:
-                    return Alert(title: Text("Unknown Error"), dismissButton: .default(Text("OK")))
+                case .restored:
+                    return Alert(
+                        title: Text("Restore Purchases"),
+                        message: Text("Your previous purchases have been restored successfully!"),
+                        dismissButton: .default(Text("OK"), action: {
+                            storeManager.restored = false
+                        })
+                    )
                 }
             }
+        }.onAppear{
+            setupCallbacks()
         }
     }
-
+    
     private func handlePremiumCheck() {
         let userId = viewModel.getUser()?.uid ?? ""
         FirestoreUtil.checkPremiumStatus(userId: userId) { isPremium, error in
@@ -92,36 +125,30 @@ struct AddTripModalView: View {
                 if let isPremium = isPremium {
                     if isPremium {
                         alertContext = .alreadyPremium
-                        self.showingAlert = true
                     } else {
                         checkFreeTrial(userId: userId)
                     }
                 } else if let error = error {
-                    print("Error checking premium status: \(error.localizedDescription)")
                     alertContext = .error(error.localizedDescription)
-                    self.showingAlert = true
                 }
             }
         }
     }
-
+    
     private func checkFreeTrial(userId: String) {
         FirestoreUtil.checkFreeTrial(userId: userId) { freeTrialActive, error in
             if let freeTrialActive = freeTrialActive {
                 if freeTrialActive {
-                    self.alertTitle = "Free Trial Active"
-                    self.alertMessage = "You can auto-import one itinerary document as part of your free trial. Please send your itinerary to info@usc-tracker.com from your registered email address."
+                    alertTitle = "Free Trial Active"
+                    alertMessage = "You can auto-import one itinerary document as part of your free trial. Please send your itinerary to info@usc-tracker.com from your registered email address."
                     alertContext = .freeTrialActive
                 } else {
-                    self.alertTitle = "Purchase Premium"
-                    self.alertMessage = "Your free trial has ended. Please consider purchasing our premium version for a one time fee of $4.99 for continued access to auto-import features."
+                    alertTitle = "Purchase Premium"
+                    alertMessage = "Your free trial has ended. Please consider purchasing our premium version for a one time fee of $4.99 for continued access to auto-import feature."
                     alertContext = .purchasePrompt
                 }
-                self.showingAlert = true
             } else if let error = error {
-                print("Error checking free trial: \(error.localizedDescription)")
                 alertContext = .error(error.localizedDescription)
-                self.showingAlert = true
             }
         }
     }
