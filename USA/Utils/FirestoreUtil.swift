@@ -20,11 +20,11 @@ struct FirestoreUtil {
                     completion(freeTrialActive, nil)
                 } else {
                     // The freeTrialActive field does not exist, assume trial available and set it to true
-                    userRef.updateData(["freeTrialActive": true]) { error in
+                    userRef.updateData(["freeTrialActive": false]) { error in
                         if let error = error {
                             completion(nil, error)
                         } else {
-                            completion(true, nil)
+                            completion(false, nil)
                         }
                     }
                 }

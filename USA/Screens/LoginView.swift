@@ -8,13 +8,13 @@ struct LoginView: View {
     @Binding var isLoading: Bool
     @State var viewModel: TripsViewModel
     @State private var currentNonce: String?
-
+    
     var body: some View {
         VStack {
             Text("Sign in to auto-import itineraries!")
                 .font(.headline)
                 .padding()
-
+            
             GeometryReader { proxy in
                 VStack {
                     Image("statue_of_liberty")
@@ -23,7 +23,7 @@ struct LoginView: View {
                         .frame(width: proxy.size.width, height: proxy.size.height * 0.8)
                     
                     Spacer() // Dynamically assigns remaining space
-
+                    
                     SignInWithAppleButton(
                         .signIn,
                         onRequest: configureAppleSignInRequest,
@@ -31,27 +31,34 @@ struct LoginView: View {
                     )
                     .frame(width: proxy.size.width * 0.52, height: proxy.size.height * 0.07)
                     
-                    Button {
-                        Task {
-                            isLoading = true
-                            try await Authentication().googleOauth()
-                            isLoading = false
-                            if viewModel.isLoggedIn() {
-                                NavigationUtil.popToRootView(animated: true)
-                            }
-                        }
-                    } label: {
-                        HStack {
-                            Image(systemName: "person.badge.key.fill")
-                            Text("Sign in with Google")
-                        }
+//                    Button {
+//                        Task {
+//                            isLoading = true
+//                            try await Authentication().googleOauth()
+//                            isLoading = false
+//                            if viewModel.isLoggedIn() {
+//                                NavigationUtil.popToRootView(animated: true)
+//                            }
+//                        }
+//                    } label: {
+//                        HStack {
+//                            Image(systemName: "person.badge.key.fill")
+//                            Text("Sign in with Google")
+//                        }
+//                    }
+//                    .buttonStyle(.borderedProminent)
+//                    .frame(width: proxy.size.width * 0.6, height: proxy.size.height * 0.08)
+//                    .padding(.bottom, proxy.size.height * 0.09) // Provide some padding from the bottom
+                    
+                    Button("Demo Sign In") {
+                        signInAnonymously()
                     }
                     .buttonStyle(.borderedProminent)
                     .frame(width: proxy.size.width * 0.6, height: proxy.size.height * 0.08)
-                    .padding(.bottom, proxy.size.height * 0.09) // Provide some padding from the bottom
+                    .padding(.top, proxy.size.height * 0.02)
                 }
             }
-
+            
             if !err.isEmpty {
                 Text(err)
                     .foregroundColor(.red)
@@ -60,7 +67,7 @@ struct LoginView: View {
             }
         }
     }
-
+    
     private func configureAppleSignInRequest(request: ASAuthorizationAppleIDRequest) {
         request.requestedScopes = [.fullName, .email]
         let nonce = randomNonceString()
@@ -68,38 +75,49 @@ struct LoginView: View {
         request.nonce = sha256(nonce)
     }
     
+    private func signInAnonymously() {
+        Auth.auth().signInAnonymously { authResult, error in
+            if let error = error {
+                err = "Anonymous Sign in failed: \(error.localizedDescription)"
+            } else {
+                print("User is signed in anonymously")
+                NavigationUtil.popToRootView(animated: true)
+            }
+        }
+    }
+    
     private func randomNonceString(length: Int = 32) -> String {
-      precondition(length > 0)
-      var randomBytes = [UInt8](repeating: 0, count: length)
-      let errorCode = SecRandomCopyBytes(kSecRandomDefault, randomBytes.count, &randomBytes)
-      if errorCode != errSecSuccess {
-        fatalError(
-          "Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)"
-        )
-      }
-
-      let charset: [Character] =
+        precondition(length > 0)
+        var randomBytes = [UInt8](repeating: 0, count: length)
+        let errorCode = SecRandomCopyBytes(kSecRandomDefault, randomBytes.count, &randomBytes)
+        if errorCode != errSecSuccess {
+            fatalError(
+                "Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)"
+            )
+        }
+        
+        let charset: [Character] =
         Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
-
-      let nonce = randomBytes.map { byte in
-        // Pick a random character from the set, wrapping around if needed.
-        charset[Int(byte) % charset.count]
-      }
-
-      return String(nonce)
+        
+        let nonce = randomBytes.map { byte in
+            // Pick a random character from the set, wrapping around if needed.
+            charset[Int(byte) % charset.count]
+        }
+        
+        return String(nonce)
     }
     
     @available(iOS 13, *)
     private func sha256(_ input: String) -> String {
-      let inputData = Data(input.utf8)
-      let hashedData = SHA256.hash(data: inputData)
-      let hashString = hashedData.compactMap {
-        String(format: "%02x", $0)
-      }.joined()
-
-      return hashString
+        let inputData = Data(input.utf8)
+        let hashedData = SHA256.hash(data: inputData)
+        let hashString = hashedData.compactMap {
+            String(format: "%02x", $0)
+        }.joined()
+        
+        return hashString
     }
-
+    
     private func handleAppleSignInResult(result: Result<ASAuthorization, Error>) {
         switch result {
         case .success(let authorization):
