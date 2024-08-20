@@ -38,6 +38,7 @@ struct TripsView: View {
                             message: Text("Are you sure you want to delete this trip?"),
                             primaryButton: .destructive(Text("Delete")) {
                                 viewModel.deleteTrip()
+                                viewModel.updateTripCalculations()
                             },
                             secondaryButton: .cancel()
                         )

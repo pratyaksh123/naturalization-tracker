@@ -25,6 +25,26 @@ class TripsViewModel: ObservableObject {
             updateTimeLeft()  // Recalculate the time left whenever the marriage status changes
         }
     }
+    @Published var daysOutsideUS: String = ""
+    @Published var physicalPresence: String = ""
+
+    func updateTripCalculations() {
+        totalTripDuration = trips.reduce(0) { total, trip in
+            total + trip.duration
+        }
+        daysOutsideUS = formatDurationDays(days: totalTripDuration)
+        physicalPresence = calculatePhysicalPresence()
+        print("Updated trip calculations.")
+    }
+
+    private func calculatePhysicalPresence() -> String {
+        let now = Date()
+        let totalDaysOutside = Double(totalTripDuration)
+        guard let adjustedDate = Calendar.current.date(byAdding: .day, value: -Int(totalDaysOutside), to: now) else {
+            return "Calculation Error"
+        }
+        return formatDuration(from: greenCardStartDate, to: adjustedDate)
+    }
     
     private var cancellables = Set<AnyCancellable>()
     private var authHandle: AuthStateDidChangeListenerHandle?
@@ -142,9 +162,43 @@ class TripsViewModel: ObservableObject {
         if let userId = user?.uid {
             print("User is logged in with ID: \(userId)")
             checkAndSyncTrips(userId: userId)
+            updateTripCalculations()
+            fetchAndSaveFcmToken(userId: user?.uid)
         } else {
             print("User is logged out.")
             loadTrips()
+        }
+    }
+    
+    private func fetchAndSaveFcmToken(userId: String?) {
+        guard let userId = userId else {
+            print("No user ID available for FCM token storage.")
+            return
+        }
+
+        Messaging.messaging().token { token, error in
+            if let error = error {
+                print("Error fetching FCM token: \(error)")
+                return
+            }
+            guard let token = token else {
+                print("No FCM token available.")
+                return
+            }
+            self.saveFcmTokenToFirestore(userId: userId, token: token)
+        }
+    }
+    
+    func saveFcmTokenToFirestore(userId: String, token: String) {
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(userId)
+        
+        userRef.setData(["fcmToken": token], merge: true) { error in
+            if let error = error {
+                print("Error writing FCM token to Firestore: \(error)")
+            } else {
+                print("FCM token successfully written to Firestore for user \(userId).")
+            }
         }
     }
     

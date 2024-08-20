@@ -1,4 +1,5 @@
 import SwiftUI
+import Sentry
 
 enum AlertContext: Identifiable {
     case freeTrialActive
@@ -98,6 +99,7 @@ struct AddTripModalView: View {
                         dismissButton: .default(Text("OK"))
                     )
                 case .error(let message):
+                    SentrySDK.capture(error: message)
                     return Alert(
                         title: Text("Error"),
                         message: Text(message),
@@ -119,17 +121,28 @@ struct AddTripModalView: View {
     }
     
     private func handlePremiumCheck() {
-        let userId = viewModel.getUser()?.uid ?? ""
-        FirestoreUtil.checkPremiumStatus(userId: userId) { isPremium, error in
+        guard let userId = viewModel.getUser()?.uid, !userId.isEmpty else {
+            alertContext = .error("No user ID available")
+            return
+        }
+        
+        FirestoreUtil.ensureUserExists(userId: userId) { exists, error in
             DispatchQueue.main.async {
-                if let isPremium = isPremium {
-                    if isPremium {
-                        alertContext = .alreadyPremium
-                    } else {
-                        checkFreeTrial(userId: userId)
+                if let error = error {
+                    self.alertContext = .error(error.localizedDescription)
+                    return
+                }
+                
+                FirestoreUtil.checkPremiumStatus(userId: userId) { isPremium, error in
+                    if let isPremium = isPremium {
+                        if isPremium {
+                            self.alertContext = .alreadyPremium
+                        } else {
+                            self.checkFreeTrial(userId: userId)
+                        }
+                    } else if let error = error {
+                        self.alertContext = .error(error.localizedDescription)
                     }
-                } else if let error = error {
-                    alertContext = .error(error.localizedDescription)
                 }
             }
         }

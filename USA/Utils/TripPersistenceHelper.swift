@@ -24,6 +24,16 @@ class TripPersistence {
         }
     }
     
+    func deleteTrips(completion: @escaping (Bool) -> Void) {
+        DispatchQueue.global(qos: .background).async {
+            self.store.removeObject(forKey: self.tripsKey)
+            let success = self.store.synchronize() // Even though deprecated, used here for immediate removal in this example
+            DispatchQueue.main.async {
+                completion(success)
+            }
+        }
+    }
+    
     func saveTripsToFirestore(_ trips: [Trip], userId: String, completion: @escaping (Bool) -> Void) {
         let db = Firestore.firestore()
         let data: [String: Any] = ["trips": try! JSONEncoder().encode(trips).base64EncodedString()]

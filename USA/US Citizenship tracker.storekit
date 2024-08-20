@@ -1,5 +1,5 @@
 {
-  "identifier" : "F71323E5",
+  "identifier" : "A1B6CED9",
   "nonRenewingSubscriptions" : [
 
   ],
@@ -7,16 +7,16 @@
     {
       "displayPrice" : "4.99",
       "familyShareable" : false,
-      "internalID" : "6608959333",
+      "internalID" : "6642685745",
       "localizations" : [
         {
-          "description" : "Auto Import Itenaries from email",
+          "description" : "Auto Import your itenaries using AI",
           "displayName" : "Auto import",
           "locale" : "en_US"
         }
       ],
-      "productID" : "USCAutoImportFeature",
-      "referenceName" : "Auto-Import Feature",
+      "productID" : "USCAutoImport",
+      "referenceName" : "USC-Tracker Auto Import",
       "type" : "NonConsumable"
     }
   ],
@@ -24,23 +24,17 @@
     "_applicationInternalID" : "6608959491",
     "_developerTeamID" : "KCFD483S37",
     "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 744500825.72112799,
+    "_lastSynchronizedDate" : 745728258.21251297,
     "_locale" : "en_US",
     "_storefront" : "USA",
     "_storeKitErrors" : [
       {
-        "current" : {
-          "index" : 2,
-          "type" : "generic"
-        },
+        "current" : null,
         "enabled" : false,
         "name" : "Load Products"
       },
       {
-        "current" : {
-          "index" : 1,
-          "type" : "purchase"
-        },
+        "current" : null,
         "enabled" : false,
         "name" : "Purchase"
       },

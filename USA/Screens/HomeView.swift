@@ -15,6 +15,7 @@ struct HomeView: View {
     
     private func setup() {
         viewModel.updateTimeLeft()
+        viewModel.updateTripCalculations()
     }
     
     private var citizenshipDate: String {
@@ -51,16 +52,12 @@ struct HomeView: View {
                     .bold()
                     .foregroundColor(Color.accentColor)
                     .padding(.top, 1)
-
-                let now = Date()
-                let daysOutsideUS = viewModel.formatDurationDays(days: viewModel.totalTripDuration)
-                let physicalPresence = viewModel.formatDuration(from: viewModel.greenCardStartDate, to: now)
                 
                 Text("Physical presence:")
                     .font(.headline)
                     .padding(.top, 3)
                 
-                Text(physicalPresence)
+                Text(viewModel.physicalPresence)
                     .font(.title2)
                     .bold()
                     .foregroundColor(Color.accentColor)
@@ -70,12 +67,12 @@ struct HomeView: View {
                     .font(.headline)
                     .padding(.top, 3)
                 
-                Text(daysOutsideUS)
+                Text(viewModel.daysOutsideUS)
                     .font(.title2)
                     .bold()
                     .foregroundColor(Color.accentColor)
                     .padding(.top, 1)
-
+                
                 
                 NavigationLink(destination: TripsView(viewModel: viewModel, isActive: $isActive)) {
                     Text("Trips")

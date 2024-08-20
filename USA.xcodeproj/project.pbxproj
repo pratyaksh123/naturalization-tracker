@@ -16,9 +16,6 @@
 		300649072C5E956900C4AABA /* ShowAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300649062C5E956900C4AABA /* ShowAlert.swift */; };
 		300649092C6020A600C4AABA /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 300649082C6020A600C4AABA /* StoreManager.swift */; };
 		3006490C2C602CC200C4AABA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3006490B2C602CC200C4AABA /* StoreKit.framework */; };
-		3006490E2C602E5700C4AABA /* Auto-Import.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 3006490D2C602E5700C4AABA /* Auto-Import.storekit */; };
-		300649112C6453BF00C4AABA /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = 300649102C6453BF00C4AABA /* RevenueCat */; };
-		300649132C6453BF00C4AABA /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = 300649122C6453BF00C4AABA /* RevenueCatUI */; };
 		3031E6E52C546B3D0029BB16 /* USAApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E6E42C546B3D0029BB16 /* USAApp.swift */; };
 		3031E6E72C546B3D0029BB16 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E6E62C546B3D0029BB16 /* HomeView.swift */; };
 		3031E6E92C546B3E0029BB16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3031E6E82C546B3E0029BB16 /* Assets.xcassets */; };
@@ -38,6 +35,7 @@
 		3031E7272C573B610029BB16 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E7262C573B600029BB16 /* Authentication.swift */; };
 		3031E7292C573B720029BB16 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E7282C573B720029BB16 /* LoginView.swift */; };
 		3031E72D2C573CB70029BB16 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E72C2C573CB70029BB16 /* ContentView.swift */; };
+		3069C1D92C72E90000BFF749 /* US Citizenship tracker.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 3069C1D82C72E90000BFF749 /* US Citizenship tracker.storekit */; };
 		B102E783D6964549992C48C3 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 724F85364843472BAAEEDABA /* Sentry */; };
 /* End PBXBuildFile section */
 
@@ -49,7 +47,6 @@
 		300649062C5E956900C4AABA /* ShowAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowAlert.swift; sourceTree = "<group>"; };
 		300649082C6020A600C4AABA /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
 		3006490B2C602CC200C4AABA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
-		3006490D2C602E5700C4AABA /* Auto-Import.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Auto-Import.storekit"; sourceTree = "<group>"; };
 		3031E6E12C546B3D0029BB16 /* USA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = USA.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3031E6E42C546B3D0029BB16 /* USAApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = USAApp.swift; sourceTree = "<group>"; };
 		3031E6E62C546B3D0029BB16 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
@@ -68,6 +65,7 @@
 		3031E7262C573B600029BB16 /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		3031E7282C573B720029BB16 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		3031E72C2C573CB70029BB16 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3069C1D82C72E90000BFF749 /* US Citizenship tracker.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; name = "US Citizenship tracker.storekit"; path = "USA/US Citizenship tracker.storekit"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,10 +78,8 @@
 				3031E71E2C57382B0029BB16 /* FirebaseAuth in Frameworks */,
 				300648F12C59C7FB00C4AABA /* FirebaseMessaging in Frameworks */,
 				3031E7232C5739A80029BB16 /* GoogleSignIn in Frameworks */,
-				300649112C6453BF00C4AABA /* RevenueCat in Frameworks */,
 				3031E7252C5739A80029BB16 /* GoogleSignInSwift in Frameworks */,
 				300648F32C59D81C00C4AABA /* FirebaseFirestoreSwift in Frameworks */,
-				300649132C6453BF00C4AABA /* RevenueCatUI in Frameworks */,
 				B102E783D6964549992C48C3 /* Sentry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -154,6 +150,7 @@
 		3031E6D82C546B3D0029BB16 = {
 			isa = PBXGroup;
 			children = (
+				3069C1D82C72E90000BFF749 /* US Citizenship tracker.storekit */,
 				3031E71F2C5738B30029BB16 /* GoogleService-Info.plist */,
 				3031E6E32C546B3D0029BB16 /* USA */,
 				3031E6E22C546B3D0029BB16 /* Products */,
@@ -182,7 +179,6 @@
 				3031E6E42C546B3D0029BB16 /* USAApp.swift */,
 				3031E6E82C546B3E0029BB16 /* Assets.xcassets */,
 				3031E6EA2C546B3E0029BB16 /* Preview Content */,
-				3006490D2C602E5700C4AABA /* Auto-Import.storekit */,
 			);
 			path = USA;
 			sourceTree = "<group>";
@@ -220,8 +216,6 @@
 				300648F02C59C7FB00C4AABA /* FirebaseMessaging */,
 				300648F22C59D81C00C4AABA /* FirebaseFirestoreSwift */,
 				724F85364843472BAAEEDABA /* Sentry */,
-				300649102C6453BF00C4AABA /* RevenueCat */,
-				300649122C6453BF00C4AABA /* RevenueCatUI */,
 			);
 			productName = USA;
 			productReference = 3031E6E12C546B3D0029BB16 /* USA.app */;
@@ -255,7 +249,6 @@
 				3031E71A2C57382B0029BB16 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				3031E7212C5739A80029BB16 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				5CC33672ACC446C087466BFD /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
-				3006490F2C6453BF00C4AABA /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
 			);
 			productRefGroup = 3031E6E22C546B3D0029BB16 /* Products */;
 			projectDirPath = "";
@@ -271,7 +264,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3006490E2C602E5700C4AABA /* Auto-Import.storekit in Resources */,
+				3069C1D92C72E90000BFF749 /* US Citizenship tracker.storekit in Resources */,
 				3031E6EC2C546B3E0029BB16 /* Preview Assets.xcassets in Resources */,
 				3031E6E92C546B3E0029BB16 /* Assets.xcassets in Resources */,
 				3031E7202C5738B30029BB16 /* GoogleService-Info.plist in Resources */,
@@ -454,7 +447,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = USA/USA.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"USA/Preview Content\"";
 				DEVELOPMENT_TEAM = KCFD483S37;
@@ -473,7 +466,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pratyaksh.USA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -494,7 +487,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = USA/USA.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_ASSET_PATHS = "\"USA/Preview Content\"";
 				DEVELOPMENT_TEAM = KCFD483S37;
@@ -513,7 +506,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pratyaksh.USA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -550,14 +543,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		3006490F2C6453BF00C4AABA /* XCRemoteSwiftPackageReference "purchases-ios-spm" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/RevenueCat/purchases-ios-spm.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.2.3;
-			};
-		};
 		3031E71A2C57382B0029BB16 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -594,16 +579,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3031E71A2C57382B0029BB16 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestoreSwift;
-		};
-		300649102C6453BF00C4AABA /* RevenueCat */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3006490F2C6453BF00C4AABA /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
-			productName = RevenueCat;
-		};
-		300649122C6453BF00C4AABA /* RevenueCatUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 3006490F2C6453BF00C4AABA /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
-			productName = RevenueCatUI;
 		};
 		3031E71B2C57382B0029BB16 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;

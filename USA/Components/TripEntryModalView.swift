@@ -66,6 +66,7 @@ struct TripEntryModalView: View {
                                 viewModel.trips.append(newTrip)
                             }
                             viewModel.saveTrips()
+                            viewModel.updateTripCalculations()
                             showModal = false
                         }) {
                             Text(isEditing ? "Save Trip" : "Add Trip")

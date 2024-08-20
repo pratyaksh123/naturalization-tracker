@@ -74,5 +74,25 @@ struct FirestoreUtil {
             }
         }
     }
+    
+    static func ensureUserExists(userId: String, completion: @escaping (Bool, Error?) -> Void) {
+        let userRef = Firestore.firestore().collection("users").document(userId)
+        userRef.getDocument { (document, error) in
+            if let document = document, document.exists {
+                completion(true, nil)
+            } else if let error = error {
+                completion(false, error)
+            } else {
+                // User does not exist, create the user with default values
+                userRef.setData(["freeTrial": false], merge: true) { error in
+                    if let error = error {
+                        completion(false, error)
+                    } else {
+                        completion(true, nil)
+                    }
+                }
+            }
+        }
+    }
 }
 
