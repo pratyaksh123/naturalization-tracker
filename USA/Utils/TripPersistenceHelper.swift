@@ -24,6 +24,12 @@ class TripPersistence {
         }
     }
     
+    func deleteGCResidentDate() {
+        store.removeObject(forKey: gcResidentKey)
+        store.synchronize() // Even though deprecated, ensuring immediate sync in this example
+        print("GC Resident Date successfully deleted from iCloud")
+    }
+    
     func deleteTrips(completion: @escaping (Bool) -> Void) {
         DispatchQueue.global(qos: .background).async {
             self.store.removeObject(forKey: self.tripsKey)

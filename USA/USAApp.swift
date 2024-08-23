@@ -13,8 +13,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         SentrySDK.start { options in
             options.dsn = "https://582c6a5129c8e2f0d3bcc8002a2ae6dc@o4507734083502080.ingest.us.sentry.io/4507734092152832"
-            options.debug = true // Enabled debug when first installing is always helpful
-            options.sampleRate = 1.0
+            options.debug = false // Enabled debug when first installing is always helpful
+            options.sampleRate = 0.2
 
             // Uncomment the following lines to add more data to your events
             // options.attachScreenshot = true // This adds a screenshot to the error events

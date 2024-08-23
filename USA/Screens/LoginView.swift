@@ -31,31 +31,31 @@ struct LoginView: View {
                     )
                     .frame(width: proxy.size.width * 0.52, height: proxy.size.height * 0.07)
                     
-//                    Button {
-//                        Task {
-//                            isLoading = true
-//                            try await Authentication().googleOauth()
-//                            isLoading = false
-//                            if viewModel.isLoggedIn() {
-//                                NavigationUtil.popToRootView(animated: true)
-//                            }
-//                        }
-//                    } label: {
-//                        HStack {
-//                            Image(systemName: "person.badge.key.fill")
-//                            Text("Sign in with Google")
-//                        }
-//                    }
-//                    .buttonStyle(.borderedProminent)
-//                    .frame(width: proxy.size.width * 0.6, height: proxy.size.height * 0.08)
-//                    .padding(.bottom, proxy.size.height * 0.09) // Provide some padding from the bottom
-                    
-                    Button("Demo Sign In") {
-                        signInAnonymously()
+                    Button {
+                        Task {
+                            isLoading = true
+                            try await Authentication().googleOauth()
+                            isLoading = false
+                            if viewModel.isLoggedIn() {
+                                NavigationUtil.popToRootView(animated: true)
+                            }
+                        }
+                    } label: {
+                        HStack {
+                            Image(systemName: "person.badge.key.fill")
+                            Text("Sign in with Google")
+                        }
                     }
                     .buttonStyle(.borderedProminent)
                     .frame(width: proxy.size.width * 0.6, height: proxy.size.height * 0.08)
-                    .padding(.top, proxy.size.height * 0.02)
+                    .padding(.bottom, proxy.size.height * 0.09) // Provide some padding from the bottom
+                    
+//                    Button("Demo Sign In") {
+//                        signInAnonymously()
+//                    }
+//                    .buttonStyle(.borderedProminent)
+//                    .frame(width: proxy.size.width * 0.6, height: proxy.size.height * 0.08)
+//                    .padding(.top, proxy.size.height * 0.02)
                 }
             }
             

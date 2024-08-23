@@ -28,7 +28,7 @@ class StoreManager: NSObject, ObservableObject, SKProductsRequestDelegate, SKPay
     }
     
     func fetchProducts() {
-        let request = SKProductsRequest(productIdentifiers: Set(["USCAutoImportFeature"]))
+        let request = SKProductsRequest(productIdentifiers: Set(["USCAutoImport"]))
         request.delegate = self
         request.start()
     }

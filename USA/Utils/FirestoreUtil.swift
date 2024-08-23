@@ -20,11 +20,11 @@ struct FirestoreUtil {
                     completion(freeTrialActive, nil)
                 } else {
                     // The freeTrialActive field does not exist, assume trial available and set it to true
-                    userRef.updateData(["freeTrialActive": false]) { error in
+                    userRef.updateData(["freeTrialActive": true]) { error in
                         if let error = error {
                             completion(nil, error)
                         } else {
-                            completion(false, nil)
+                            completion(true, nil)
                         }
                     }
                 }
@@ -32,6 +32,37 @@ struct FirestoreUtil {
                 // Document does not exist, should ideally never be the case since userId should be valid
                 print("No user document found for user ID: \(userId)")
                 completion(nil, nil)
+            }
+        }
+    }
+    
+    
+    static func exhaustFreeTrial(userId: String, completion: @escaping (Bool, Error?) -> Void) {
+        let db = Firestore.firestore()
+        let userRef = db.collection("users").document(userId)
+        
+        // First, try to fetch the document to see if it exists
+        userRef.getDocument { documentSnapshot, error in
+            if let error = error {
+                completion(false, error)
+            } else if let documentSnapshot = documentSnapshot, documentSnapshot.exists {
+                // If the document exists, update it
+                userRef.updateData(["freeTrialActive": false]) { error in
+                    if let error = error {
+                        completion(false, error)
+                    } else {
+                        completion(true, nil)
+                    }
+                }
+            } else {
+                // If the document does not exist, create it with `freeTrialActive` set to false
+                userRef.setData(["freeTrialActive": false]) { error in
+                    if let error = error {
+                        completion(false, error)
+                    } else {
+                        completion(true, nil)
+                    }
+                }
             }
         }
     }

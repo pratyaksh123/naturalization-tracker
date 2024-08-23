@@ -35,7 +35,8 @@
 		3031E7272C573B610029BB16 /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E7262C573B600029BB16 /* Authentication.swift */; };
 		3031E7292C573B720029BB16 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E7282C573B720029BB16 /* LoginView.swift */; };
 		3031E72D2C573CB70029BB16 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3031E72C2C573CB70029BB16 /* ContentView.swift */; };
-		3069C1D92C72E90000BFF749 /* US Citizenship tracker.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 3069C1D82C72E90000BFF749 /* US Citizenship tracker.storekit */; };
+		30E870812C753E8F001469A4 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = 30E870802C753E8F001469A4 /* RevenueCat */; };
+		30E870832C753E8F001469A4 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = 30E870822C753E8F001469A4 /* RevenueCatUI */; };
 		B102E783D6964549992C48C3 /* Sentry in Frameworks */ = {isa = PBXBuildFile; productRef = 724F85364843472BAAEEDABA /* Sentry */; };
 /* End PBXBuildFile section */
 
@@ -65,7 +66,6 @@
 		3031E7262C573B600029BB16 /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		3031E7282C573B720029BB16 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		3031E72C2C573CB70029BB16 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		3069C1D82C72E90000BFF749 /* US Citizenship tracker.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; name = "US Citizenship tracker.storekit"; path = "USA/US Citizenship tracker.storekit"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,8 +78,10 @@
 				3031E71E2C57382B0029BB16 /* FirebaseAuth in Frameworks */,
 				300648F12C59C7FB00C4AABA /* FirebaseMessaging in Frameworks */,
 				3031E7232C5739A80029BB16 /* GoogleSignIn in Frameworks */,
+				30E870812C753E8F001469A4 /* RevenueCat in Frameworks */,
 				3031E7252C5739A80029BB16 /* GoogleSignInSwift in Frameworks */,
 				300648F32C59D81C00C4AABA /* FirebaseFirestoreSwift in Frameworks */,
+				30E870832C753E8F001469A4 /* RevenueCatUI in Frameworks */,
 				B102E783D6964549992C48C3 /* Sentry in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -150,7 +152,6 @@
 		3031E6D82C546B3D0029BB16 = {
 			isa = PBXGroup;
 			children = (
-				3069C1D82C72E90000BFF749 /* US Citizenship tracker.storekit */,
 				3031E71F2C5738B30029BB16 /* GoogleService-Info.plist */,
 				3031E6E32C546B3D0029BB16 /* USA */,
 				3031E6E22C546B3D0029BB16 /* Products */,
@@ -216,6 +217,8 @@
 				300648F02C59C7FB00C4AABA /* FirebaseMessaging */,
 				300648F22C59D81C00C4AABA /* FirebaseFirestoreSwift */,
 				724F85364843472BAAEEDABA /* Sentry */,
+				30E870802C753E8F001469A4 /* RevenueCat */,
+				30E870822C753E8F001469A4 /* RevenueCatUI */,
 			);
 			productName = USA;
 			productReference = 3031E6E12C546B3D0029BB16 /* USA.app */;
@@ -249,6 +252,7 @@
 				3031E71A2C57382B0029BB16 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				3031E7212C5739A80029BB16 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				5CC33672ACC446C087466BFD /* XCRemoteSwiftPackageReference "sentry-cocoa" */,
+				30E8707F2C753E8F001469A4 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
 			);
 			productRefGroup = 3031E6E22C546B3D0029BB16 /* Products */;
 			projectDirPath = "";
@@ -264,7 +268,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3069C1D92C72E90000BFF749 /* US Citizenship tracker.storekit in Resources */,
 				3031E6EC2C546B3E0029BB16 /* Preview Assets.xcassets in Resources */,
 				3031E6E92C546B3E0029BB16 /* Assets.xcassets in Resources */,
 				3031E7202C5738B30029BB16 /* GoogleService-Info.plist in Resources */,
@@ -466,7 +469,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pratyaksh.USA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -506,7 +509,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.3;
+				MARKETING_VERSION = 1.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pratyaksh.USA;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -559,6 +562,14 @@
 				minimumVersion = 7.1.0;
 			};
 		};
+		30E8707F2C753E8F001469A4 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.2.3;
+			};
+		};
 		5CC33672ACC446C087466BFD /* XCRemoteSwiftPackageReference "sentry-cocoa" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/getsentry/sentry-cocoa/";
@@ -599,6 +610,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 3031E7212C5739A80029BB16 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
+		};
+		30E870802C753E8F001469A4 /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 30E8707F2C753E8F001469A4 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCat;
+		};
+		30E870822C753E8F001469A4 /* RevenueCatUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 30E8707F2C753E8F001469A4 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCatUI;
 		};
 		724F85364843472BAAEEDABA /* Sentry */ = {
 			isa = XCSwiftPackageProductDependency;

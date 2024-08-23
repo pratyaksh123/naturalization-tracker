@@ -64,6 +64,23 @@ struct AddTripModalView: View {
                     storeManager.restorePurchases()
                 }
                 .padding(.vertical, 10)
+                
+//                Button("Exhaust Free Trial") {
+//                    if let userId = viewModel.getUser()?.uid {
+//                        FirestoreUtil.exhaustFreeTrial(userId: userId) { success, error in
+//                            if success {
+//                                alertTitle = "Free Trial Exhausted"
+//                                alertMessage = "The free trial has been manually exhausted for testing purposes."
+//                                alertContext = .freeTrialActive // Update this to a more appropriate alert context if needed
+//                            } else {
+//                                alertTitle = "Error"
+//                                alertMessage = "Failed to exhaust the free trial: \(error?.localizedDescription ?? "Unknown error")"
+//                                alertContext = .error(alertMessage)
+//                            }
+//                        }
+//                    }
+//                }
+//                .padding(.vertical, 10)
             }
             .navigationTitle("Add Trip Options")
             .toolbar {

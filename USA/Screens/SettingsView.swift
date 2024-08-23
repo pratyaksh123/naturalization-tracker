@@ -36,6 +36,8 @@ struct SettingsView: View {
                     if success {
                         // Step 3: Delete the Firebase Auth user
                         deleteFirebaseAuthUser(user: user)
+                        // step 4: Delete gc residential key
+                        TripPersistence.shared.deleteGCResidentDate()
                     } else {
                         self.errorMessage = "Failed to delete trips from iCloud."
                         self.showErrorAlert = true
