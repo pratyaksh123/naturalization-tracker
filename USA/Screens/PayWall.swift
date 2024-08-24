@@ -3,30 +3,37 @@ import RevenueCat
 
 struct PayWall: View {
     @Environment(\.presentationMode) var presentationMode
-    @Environment(\.colorScheme) var colorScheme
     @State private var package: Package?
     var onPurchaseComplete: () -> Void
+    @State private var showAlert = false
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
     
     private func getOfferings() {
-            Purchases.shared.getOfferings { (offerings, error) in
-                if let error = error {
-                    print("Error fetching offerings: \(error.localizedDescription)")
-                    return
+        Purchases.shared.getOfferings { (offerings, error) in
+            if let error = error {
+                self.alertTitle = "Error"
+                self.alertMessage = "Failed to fetch offerings: \(error.localizedDescription)"
+                self.showAlert = true
+                return
+            }
+            guard let offerings = offerings, let autoImportOffering = offerings.offering(identifier: "USCAutoImportt") else {
+                self.alertTitle = "Error"
+                self.alertMessage = "No available offerings or specific offering not found."
+                self.showAlert = true
+                return
+            }
+            if let firstPackage = autoImportOffering.availablePackages.first {
+                DispatchQueue.main.async {
+                    self.package = firstPackage // Update the package state
                 }
-                guard let offerings = offerings, let autoImportOffering = offerings.offering(identifier: "USCAutoImport") else {
-                    print("No offerings available or specific offering not found.")
-                    return
-                }
-                
-                // Assuming `autoImportOffering` has a list of packages and we're interested in the first available package
-                if let firstPackage = autoImportOffering.availablePackages.first {
-                    DispatchQueue.main.async {
-                        self.package = firstPackage // Update the package state
-                        print("Package updated: \(firstPackage)")
-                    }
-                }
+            } else {
+                self.alertTitle = "Error"
+                self.alertMessage = "No packages available for this offering."
+                self.showAlert = true
             }
         }
+    }
     
     var body: some View {
         VStack {
@@ -60,27 +67,32 @@ struct PayWall: View {
                 
                 Button("Continue") {
                     guard let package = self.package else {
-                        print("No package available for purchase")
-                        // Optionally, add user feedback here, like displaying an alert.
+                        self.alertTitle = "Purchase Unavailable"
+                        self.alertMessage = "No package available for purchase."
+                        self.showAlert = true
                         return
                     }
                     
                     Purchases.shared.purchase(package: package) { (transaction, customerInfo, error, userCancelled) in
                         if let error = error {
-                            print("Purchase failed: \(error.localizedDescription)")
+                            self.alertTitle = "Purchase Failed"
+                            self.alertMessage = error.localizedDescription
+                            self.showAlert = true
                             return
                         }
                         if userCancelled {
-                            print("User cancelled the purchase")
+                            self.alertTitle = "Purchase Cancelled"
+                            self.alertMessage = "You have cancelled the purchase."
+                            self.showAlert = true
                             return
                         }
                         if customerInfo?.entitlements["premium"]?.isActive == true {
-                            print("Premium purchased")
                             self.onPurchaseComplete()
                             self.presentationMode.wrappedValue.dismiss()
                         } else {
-                            print("Purchase completed but premium not active")
-                            // Handle case where purchase did not grant access as expected
+                            self.alertTitle = "Purchase Incomplete"
+                            self.alertMessage = "Contact our team at info@usc-tracker.tech"
+                            self.showAlert = true
                         }
                     }
                 }
@@ -91,18 +103,18 @@ struct PayWall: View {
                 Button("Restore purchases") {
                     Purchases.shared.restorePurchases { customerInfo, error in
                         if let error = error {
-                            print("Restore failed: \(error.localizedDescription)")
-                            // Optionally, alert the user that the restore process failed.
+                            self.alertTitle = "Restore Failed"
+                            self.alertMessage = error.localizedDescription
+                            self.showAlert = true
                             return
                         }
-
                         if customerInfo?.entitlements["premium"]?.isActive == true {
-                            print("Premium features restored")
                             self.onPurchaseComplete()
                             self.presentationMode.wrappedValue.dismiss()
                         } else {
-                            print("No premium features to restore")
-                            // Handle case where no premium purchases are found or active.
+                            self.alertTitle = "No Purchases to Restore"
+                            self.alertMessage = "No premium purchases were found."
+                            self.showAlert = true
                         }
                     }
                 }
@@ -116,6 +128,16 @@ struct PayWall: View {
         .background(Color(.systemBackground))
         .onAppear{
             getOfferings()
+        }
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text(alertTitle),
+                message: Text(alertMessage),
+                dismissButton: .default(Text("OK"), action: {
+                    // Dismiss the paywall view when there is an error
+                    presentationMode.wrappedValue.dismiss()
+                })
+            )
         }
     }
 }

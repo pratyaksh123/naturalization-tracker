@@ -123,7 +123,7 @@ struct AddTripModalView: View {
                 case .alreadyPremium:
                     return Alert(
                         title: Text("Auto Import"),
-                        message: Text("Thanks for purchasing the premium version! You can auto-import your trip by sending your itinerary to info@usc-tracker.com from your registered email address!"),
+                        message: Text("Thanks for purchasing the premium version! You can auto-import your trip by sending your itinerary to info@usc-tracker.tech from your registered email address!"),
                         dismissButton: .default(Text("OK"))
                     )
                 case .error(let message):
@@ -201,7 +201,7 @@ struct AddTripModalView: View {
             if let freeTrialActive = freeTrialActive {
                 if freeTrialActive {
                     alertTitle = "Free Trial Active"
-                    alertMessage = "You can auto-import one itinerary document as part of your free trial. Please send your itinerary to info@usc-tracker.com from your registered email address."
+                    alertMessage = "You can auto-import one itinerary document as part of your free trial. Please send your itinerary to info@usc-tracker.tech from your registered email address."
                     alertContext = .freeTrialActive
                 } else {
                     print("Displaying paywall")
