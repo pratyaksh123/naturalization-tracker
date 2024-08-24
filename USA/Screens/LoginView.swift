@@ -29,7 +29,7 @@ struct LoginView: View {
                         onRequest: configureAppleSignInRequest,
                         onCompletion: handleAppleSignInResult
                     )
-                    .frame(width: proxy.size.width * 0.52, height: proxy.size.height * 0.07)
+                    .frame(width: proxy.size.width * 0.6, height: proxy.size.height * 0.07)
                     
                     Button {
                         Task {
@@ -47,8 +47,8 @@ struct LoginView: View {
                         }
                     }
                     .buttonStyle(.borderedProminent)
-                    .frame(width: proxy.size.width * 0.6, height: proxy.size.height * 0.08)
-                    .padding(.bottom, proxy.size.height * 0.09) // Provide some padding from the bottom
+                    .frame(width: proxy.size.width * 0.7, height: proxy.size.height * 0.08)
+                    .padding(.top, proxy.size.height * 0.02)
                     
 //                    Button("Demo Sign In") {
 //                        signInAnonymously()

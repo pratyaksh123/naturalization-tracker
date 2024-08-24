@@ -1,6 +1,7 @@
 import Foundation
 import Firebase
 import Combine
+import RevenueCat
 
 class TripsViewModel: ObservableObject {
     @Published var trips: [Trip] = [] {
@@ -164,6 +165,9 @@ class TripsViewModel: ObservableObject {
             checkAndSyncTrips(userId: userId)
             updateTripCalculations()
             fetchAndSaveFcmToken(userId: user?.uid)
+            Purchases.shared.logIn(userId) { (customerInfo, created, error) in
+                print("created \(created) Cust info \(String(describing: customerInfo))")
+            }
         } else {
             print("User is logged out.")
             loadTrips()

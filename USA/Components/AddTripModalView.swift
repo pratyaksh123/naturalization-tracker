@@ -1,5 +1,7 @@
 import SwiftUI
 import Sentry
+import RevenueCat
+import RevenueCatUI
 
 enum AlertContext: Identifiable {
     case freeTrialActive
@@ -29,6 +31,7 @@ struct AddTripModalView: View {
     @State private var alertTitle = ""
     @State private var alertMessage = ""
     @StateObject private var storeManager = StoreManager()
+    @State private var displayPaywall = false
     
     private func setupCallbacks() {
         storeManager.onRestoreCompleted = {
@@ -36,6 +39,19 @@ struct AddTripModalView: View {
         }
         storeManager.onError = { errorMessage in
             alertContext = .error(errorMessage)
+        }
+    }
+    
+    private func setPremiumUser(){
+        if let userId = self.viewModel.getUser()?.uid {
+            FirestoreUtil.setPremiumUserStatus(userId: userId, isPremium: true) { error in
+                if let error = error {
+                    print("Error updating premium status: \(error.localizedDescription)")
+                } else {
+                    print("Premium status successfully updated.")
+                    alertContext = .alreadyPremium
+                }
+            }
         }
     }
     
@@ -60,27 +76,22 @@ struct AddTripModalView: View {
                 }
                 .padding(.vertical, 10)
                 
-                Button("Restore Subscriptions") {
-                    storeManager.restorePurchases()
-                }
-                .padding(.vertical, 10)
-                
-//                Button("Exhaust Free Trial") {
-//                    if let userId = viewModel.getUser()?.uid {
-//                        FirestoreUtil.exhaustFreeTrial(userId: userId) { success, error in
-//                            if success {
-//                                alertTitle = "Free Trial Exhausted"
-//                                alertMessage = "The free trial has been manually exhausted for testing purposes."
-//                                alertContext = .freeTrialActive // Update this to a more appropriate alert context if needed
-//                            } else {
-//                                alertTitle = "Error"
-//                                alertMessage = "Failed to exhaust the free trial: \(error?.localizedDescription ?? "Unknown error")"
-//                                alertContext = .error(alertMessage)
-//                            }
-//                        }
-//                    }
-//                }
-//                .padding(.vertical, 10)
+                //                Button("Exhaust Free Trial") {
+                //                    if let userId = viewModel.getUser()?.uid {
+                //                        FirestoreUtil.exhaustFreeTrial(userId: userId) { success, error in
+                //                            if success {
+                //                                alertTitle = "Free Trial Exhausted"
+                //                                alertMessage = "The free trial has been manually exhausted for testing purposes."
+                //                                alertContext = .freeTrialActive // Update this to a more appropriate alert context if needed
+                //                            } else {
+                //                                alertTitle = "Error"
+                //                                alertMessage = "Failed to exhaust the free trial: \(error?.localizedDescription ?? "Unknown error")"
+                //                                alertContext = .error(alertMessage)
+                //                            }
+                //                        }
+                //                    }
+                //                }
+                //                .padding(.vertical, 10)
             }
             .navigationTitle("Add Trip Options")
             .toolbar {
@@ -135,6 +146,24 @@ struct AddTripModalView: View {
         }.onAppear{
             setupCallbacks()
         }
+        .sheet(isPresented: $displayPaywall) {
+            if #available(iOS 16.0, *) {
+                PaywallView(displayCloseButton: true)
+                    .onPurchaseCompleted { CustomerInfo in
+                        print("Purchased - \(CustomerInfo)")
+                        self.displayPaywall = false
+                        setPremiumUser()
+                    }
+                    .onRestoreCompleted { CustomerInfo in
+                        print("Restored - \(CustomerInfo)")
+                        self.displayPaywall = false
+                        setPremiumUser()
+                    }
+            }
+            else {
+                PayWall(onPurchaseComplete: setPremiumUser)
+            }
+        }
     }
     
     private func handlePremiumCheck() {
@@ -153,8 +182,10 @@ struct AddTripModalView: View {
                 FirestoreUtil.checkPremiumStatus(userId: userId) { isPremium, error in
                     if let isPremium = isPremium {
                         if isPremium {
+                            print("User is premium")
                             self.alertContext = .alreadyPremium
                         } else {
+                            print("Checking free trial")
                             self.checkFreeTrial(userId: userId)
                         }
                     } else if let error = error {
@@ -173,9 +204,8 @@ struct AddTripModalView: View {
                     alertMessage = "You can auto-import one itinerary document as part of your free trial. Please send your itinerary to info@usc-tracker.com from your registered email address."
                     alertContext = .freeTrialActive
                 } else {
-                    alertTitle = "Purchase Premium"
-                    alertMessage = "Your free trial has ended. Please consider purchasing our premium version for a one time fee of $4.99 for continued access to auto-import feature."
-                    alertContext = .purchasePrompt
+                    print("Displaying paywall")
+                    self.displayPaywall = true
                 }
             } else if let error = error {
                 alertContext = .error(error.localizedDescription)

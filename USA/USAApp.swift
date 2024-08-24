@@ -7,6 +7,9 @@ import FirebaseCore
 import FirebaseMessaging
 import UserNotifications
 import FirebaseFirestore
+import RevenueCat
+import RevenueCatUI
+
 
 class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUserNotificationCenterDelegate {
     
@@ -14,13 +17,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
         SentrySDK.start { options in
             options.dsn = "https://582c6a5129c8e2f0d3bcc8002a2ae6dc@o4507734083502080.ingest.us.sentry.io/4507734092152832"
             options.debug = false // Enabled debug when first installing is always helpful
-            options.sampleRate = 0.2
-
+            options.sampleRate = 0.5
+            
+            Purchases.logLevel = .debug
+            Purchases.configure(withAPIKey: "appl_KVmSJIhhnCnzHcVngzmWPLTnsQR")
+            
             // Uncomment the following lines to add more data to your events
-            // options.attachScreenshot = true // This adds a screenshot to the error events
+            //             options.attachScreenshot = true // This adds a screenshot to the error events
             // options.attachViewHierarchy = true // This adds the view hierarchy to the error events
         }
-
+        
         // Configure Firebase
         FirebaseApp.configure()
         

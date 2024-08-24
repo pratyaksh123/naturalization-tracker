@@ -115,7 +115,7 @@ struct FirestoreUtil {
                 completion(false, error)
             } else {
                 // User does not exist, create the user with default values
-                userRef.setData(["freeTrial": false], merge: true) { error in
+                userRef.setData(["freeTrialActive": false], merge: true) { error in
                     if let error = error {
                         completion(false, error)
                     } else {
