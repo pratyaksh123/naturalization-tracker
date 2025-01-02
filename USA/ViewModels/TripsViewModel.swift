@@ -257,12 +257,14 @@ class TripsViewModel: ObservableObject {
             TripPersistence.shared.loadTripsFromFirestore(userId: userId) { [weak self] trips in
                 print("Trips loaded from Firestore: \(trips.count)")
                 self?.trips = trips
+                self?.updateTripCalculations()
             }
         } else {
             print("No user logged in. Loading trips locally...")
             TripPersistence.shared.loadTrips { [weak self] trips in
                 print("Trips loaded locally: \(trips.count)")
                 self?.trips = trips
+                self?.updateTripCalculations()
             }
         }
     }

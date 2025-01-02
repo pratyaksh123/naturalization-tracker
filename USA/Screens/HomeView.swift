@@ -1,5 +1,32 @@
 import SwiftUI
 
+struct ProgressBar: View {
+    var value: Double
+    
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack(alignment: .leading) {
+                // Background Rectangle
+                Rectangle().frame(width: geometry.size.width, height: geometry.size.height)
+                    .opacity(0.3)
+                    .foregroundColor(Color.gray)
+                
+                // Filled Rectangle
+                Rectangle().frame(width: min(CGFloat(self.value) * geometry.size.width, geometry.size.width), height: geometry.size.height)
+                    .foregroundColor(Color.accentColor)
+                    .animation(.linear, value: value)
+                
+                // Percentage Text
+                Text("\(Int(value * 100))%")
+                    .bold()
+                    .foregroundColor(.white)  // Choose a color that contrasts well with the filled color
+                    .frame(width: min(CGFloat(self.value) * geometry.size.width, geometry.size.width), height: geometry.size.height)
+                    .multilineTextAlignment(.center)
+            }.cornerRadius(45.0)
+        }
+    }
+}
+
 struct HomeView: View {
     @EnvironmentObject var viewModel: TripsViewModel
     @State private var showSettings = false
@@ -13,9 +40,24 @@ struct HomeView: View {
         return formatter
     }
     
+    private var citizenshipProgress: Double {
+        let currentDate = Date()
+        let totalDuration = viewModel.isMarriedToCitizen ? 3.0 : 5.0 // total years required for citizenship
+        let calendar = Calendar.current
+        
+        // Calculate the number of days from green card start date to today
+        let elapsedDays = calendar.dateComponents([.day], from: viewModel.greenCardStartDate, to: currentDate).day ?? 0
+        
+        // Total days in the duration required for citizenship
+        let totalDays = totalDuration * 365.25 // accounts for leap years by using 365.25 days per year
+        
+        // Progress is the elapsed days divided by total days required, capped at 1.0
+        return min(Double(elapsedDays) / totalDays, 1.0)
+    }
+    
     private func setup() {
+        viewModel.loadTrips()
         viewModel.updateTimeLeft()
-        viewModel.updateTripCalculations()
     }
     
     private var citizenshipDate: String {
@@ -39,35 +81,31 @@ struct HomeView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: proxy.size.width, height: proxy.size.height * 1)
-                        .padding(.top, -10)
+                        .padding(.top, -15)
                 }
                 
+                if(citizenshipProgress > 0) {
+                    ProgressBar(value: citizenshipProgress)
+                        .frame(height: 20)
+                        .padding(.horizontal, 20)
+                        .padding(.bottom, 10)
+                }
                 
                 Text("Time Left for Citizenship:")
                     .font(.headline)
-                    .padding(.top, 2)
+                    .padding(.top, 10)
                 
                 Text(viewModel.timeLeftForCitizenship)
-                    .font(.title)
+                    .font(.title2)
                     .bold()
                     .foregroundColor(Color.accentColor)
                     .padding(.top, 1)
                 
                 Text("Physical presence:")
                     .font(.headline)
-                    .padding(.top, 3)
+                    .padding(.top, 10)
                 
                 Text(viewModel.physicalPresence)
-                    .font(.title2)
-                    .bold()
-                    .foregroundColor(Color.accentColor)
-                    .padding(.top, 1)
-                
-                Text("Time outside:")
-                    .font(.headline)
-                    .padding(.top, 3)
-                
-                Text(viewModel.daysOutsideUS)
                     .font(.title2)
                     .bold()
                     .foregroundColor(Color.accentColor)

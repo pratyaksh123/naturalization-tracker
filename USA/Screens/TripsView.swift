@@ -8,7 +8,7 @@ struct TripsView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
+            VStack {                
                 List {
                     ForEach(viewModel.trips.sorted(by: { $0.startDate > $1.startDate })) { trip in
                         TripCardView(trip: trip)
@@ -77,9 +77,6 @@ struct TripsView: View {
                 } else {
                     AddTripModalView(showImportModal: $showOptionsModal, isActive: $isActive, viewModel: viewModel)
                 }
-            }
-            .onAppear{
-                viewModel.loadTrips()
             }
         }
     }
