@@ -17,7 +17,7 @@ struct PayWall: View {
                 self.showAlert = true
                 return
             }
-            guard let offerings = offerings, let autoImportOffering = offerings.offering(identifier: "USCAutoImportt") else {
+            guard let offerings = offerings, let autoImportOffering = offerings.offering(identifier: "USCAutoImport") else {
                 self.alertTitle = "Error"
                 self.alertMessage = "No available offerings or specific offering not found."
                 self.showAlert = true
