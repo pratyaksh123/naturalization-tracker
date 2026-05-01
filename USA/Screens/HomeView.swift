@@ -41,19 +41,36 @@ struct HomeView: View {
     }
     
     private var citizenshipProgress: Double {
-        let currentDate = Date()
-        let totalDuration = viewModel.isMarriedToCitizen ? 3.0 : 5.0 // total years required for citizenship
         let calendar = Calendar.current
+        let now = Date()
         
-        // Calculate the number of days from green card start date to today
-        let elapsedDays = calendar.dateComponents([.day], from: viewModel.greenCardStartDate, to: currentDate).day?.advanced(by: 90) ?? 0
-    
+        let adjustmentYears = viewModel.isMarriedToCitizen ? 3 : 5
         
-        // Total days in the duration required for citizenship
-        let totalDays = totalDuration * 365.25 // accounts for leap years by using 365.25 days per year
+        guard let gcEnd = calendar.date(byAdding: .year, value: adjustmentYears, to: viewModel.greenCardStartDate),
+              let eligibilityDate = calendar.date(byAdding: .day, value: -90, to: gcEnd)
+        else {
+            return 0
+        }
         
-        // Progress is the elapsed days divided by total days required, capped at 1.0
-        return min(Double(elapsedDays) / totalDays, 1.0)
+        let nowStart = calendar.startOfDay(for: now)
+        let eligibilityStart = calendar.startOfDay(for: eligibilityDate)
+        
+
+        if nowStart >= eligibilityStart {
+            return 1.0
+        }
+        
+        let totalDays = calendar.dateComponents([.day],
+            from: viewModel.greenCardStartDate,
+            to: eligibilityDate
+        ).day ?? 1
+        
+        let elapsedDays = calendar.dateComponents([.day],
+            from: viewModel.greenCardStartDate,
+            to: now
+        ).day ?? 0
+        
+        return min(Double(elapsedDays) / Double(totalDays), 1.0)
     }
     
     private func setup() {

@@ -82,7 +82,12 @@ class TripsViewModel: ObservableObject {
         
         if let eligibilityDate = eligibilityDate {
             let now = Date()
-            if now >= eligibilityDate {
+
+            let calendar = Calendar.current
+            let nowStart = calendar.startOfDay(for: now)
+            let eligibilityStart = calendar.startOfDay(for: eligibilityDate)
+            
+            if nowStart >= eligibilityStart {
                 timeLeftForCitizenship = "Naturalization Time!"
             } else {
                 timeLeftForCitizenship = formatDuration(from: now, to: eligibilityDate)
