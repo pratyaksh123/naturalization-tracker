@@ -101,7 +101,10 @@ class TripsViewModel: ObservableObject {
         if let months = components.month, months > 0 {
             parts.append("\(months) months")
         }
-        if let days = components.day, days > 0 {
+        if let days = components.day, days == 1 {
+            parts.append("\(days) day")
+        }
+        else if let days = components.day, days > 0 {
             parts.append("\(days) days")
         }
         return parts.joined(separator: " ")

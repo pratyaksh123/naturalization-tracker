@@ -46,7 +46,8 @@ struct HomeView: View {
         let calendar = Calendar.current
         
         // Calculate the number of days from green card start date to today
-        let elapsedDays = calendar.dateComponents([.day], from: viewModel.greenCardStartDate, to: currentDate).day ?? 0
+        let elapsedDays = calendar.dateComponents([.day], from: viewModel.greenCardStartDate, to: currentDate).day?.advanced(by: 90) ?? 0
+    
         
         // Total days in the duration required for citizenship
         let totalDays = totalDuration * 365.25 // accounts for leap years by using 365.25 days per year
